@@ -11,44 +11,31 @@ export default function rosterContextmenu(props: { rosterMenuItems: any[]; }) {
     const rosterMenuItems = props.rosterMenuItems;
     const [visibleFlag, setVisibleFlag] = useState(false)
     useEffect(() => {
-        setVisibleFlag(props.visible)
     })
     // alert(visibleFlag)
 
-    const handlecamera = () => {
-        setVisibleFlag(false);
+    const handleClick = (type:any) => {
+        //setVisibleFlag(false);
+      console.log(type)
     }
-    const handlemike = () => {
-        setVisibleFlag(false);
+   /* const handlemike = () => {
+        //setVisibleFlag(false);
+      alert(2)
 
     }
     const handleroster = () => {
-        setVisibleFlag(false);
+       // setVisibleFlag(false);
 
-    }
+    }*/
 
     return (
         <div>
             <div className={cx('rosterMenuList')}>
                 {
                     rosterMenuItems &&
-                    rosterMenuItems.map((rosterMenu: rosterContextmenuType, index) => {
+                    rosterMenuItems.map((rosterMenu: rosterContextmenuType) => {
                         return (
-                            <>
-                                {
-                                    rosterMenu.tpye == 'camera' && <div key={index} className={cx('menuItem')}
-                                                                        onClick={handlecamera}>{rosterMenu.name}</div>
-                                }
-                                {
-                                    rosterMenu.tpye == 'mike' && <div key={index} className={cx('menuItem')}
-                                                                      onClick={handlemike}>{rosterMenu.name}</div>
-                                }
-                                {
-                                    rosterMenu.tpye == 'roster' && <div key={index} className={cx('menuItem')}
-                                                                        onClick={handleroster}>{rosterMenu.name}</div>
-                                }
-
-                            </>
+                          <div className={cx('menuItem')} onClick={()=>handleClick(rosterMenu.tpye)}>{rosterMenu.name}</div>
                         )
                     })
                 }
