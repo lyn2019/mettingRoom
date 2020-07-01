@@ -2,6 +2,7 @@ declare const styles: {
   readonly "chat": string;
   readonly "classroom": string;
   readonly "contentVideoWrapper": string;
+  readonly "contextMenuBox": string;
   readonly "controls": string;
   readonly "deviceSwitcher": string;
   readonly "isContentShareEnabled": string;

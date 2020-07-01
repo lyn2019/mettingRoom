@@ -22,6 +22,7 @@ export default function Roster() {
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const roster = useRoster();
     const [videoAttendees, setVideoAttendees] = useState(new Set());
+    const [contextMenuvisible,setContextMenuvisible] = useState(0);
     const raisedHandAttendees = useRaisedHandAttendees();
     const intl = useIntl();
     const contextMenuList = [
@@ -29,6 +30,9 @@ export default function Roster() {
         {type: contextMenu.camera, name: '开启学生麦克风', value: '0'},
         {type: contextMenu.camera, name: '请他离开', value: '0'},
     ]
+    const handlercontextMenu=()=>{
+        setContextMenuvisible(1)
+    }
 
     useEffect(() => {
         const tileIds: { [tileId: number]: string } = {};
@@ -66,6 +70,7 @@ export default function Roster() {
         });
     }, []);
 
+
     let attendeeIds;
     if (chime?.meetingSession && roster) {
         attendeeIds = Object.keys(roster).filter(attendeeId => {
@@ -75,13 +80,13 @@ export default function Roster() {
 
     return (
         <div>
-            <RosterMenu rosterMenuItems={contextMenuList} visible={true}></RosterMenu>
+            {contextMenuvisible==1&&<RosterMenu rosterMenuItems={contextMenuList}></RosterMenu>}
             <div className={cx('roster')}>
                 {attendeeIds &&
                 attendeeIds.map((attendeeId: string) => {
                     const rosterAttendee: RosterAttendeeType = roster[attendeeId];
                     return (
-                        <div key={attendeeId} className={cx('attendee')}>
+                        <div key={attendeeId} className={cx('attendee')} onContextMenu={handlercontextMenu}>
                             <div className={cx('name')}>{rosterAttendee.name}</div>
                             {raisedHandAttendees.has(attendeeId) && (
                                 <div className={cx('raisedHand')}>

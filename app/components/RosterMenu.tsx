@@ -6,42 +6,39 @@ import rosterContextmenuType from '../types/RosterContentmenuType'
 
 const cx = classNames.bind(styles);
 
-export default function rosterContextmenu(props: { rosterMenuItems: any[]; visible:boolean}) {
+export default function rosterContextmenu(props: { rosterMenuItems: any[];}) {
     const intl = useIntl();
     const rosterMenuItems = props.rosterMenuItems;
-    //const  visible =props.visible
-    const [visible,setVisible]=useState(props.visible)
-
-
-
+    const [visibleFlag, setVisibleFlag] = useState(false)
     useEffect(() => {
-
+        setVisibleFlag(props.visible)
     })
+   // alert(visibleFlag)
 
     const handlecamera = () => {
-        setVisible(false);
+        setVisibleFlag(false);
     }
     const handlemike = () => {
-        setVisible(false);
+        setVisibleFlag(false);
 
     }
     const handleroster = () => {
-        setVisible(false);
+        setVisibleFlag(false);
 
     }
     const handleline = () => {
-        setVisible(false);
+
     }
-    let loadItem=(menu:rosterContextmenuType)=>{
+    let loadItem = (menu: rosterContextmenuType) => {
         let menuItem
-        if(menu.tpye =='camera'){
-             menuItem=  <div className={cx('menuItem')} onClick={handlecamera}>{menu.name}</div>
-        }else if(menu.tpye =='mike'){
-            menuItem=  <div className={cx('menuItem')} onClick={handlemike}>{menu.name}</div>
-        }else if(menu.tpye =='roster'){
-            menuItem=  <div className={cx('menuItem')} onClick={handleroster}>{menu.name}</div>
-        }else if(menu.tpye =='line'){
-            menuItem=  <div className={cx('menuItem')} onClick={handleline}>{menu.name}</div>
+        if (menu.tpye == 'camera') {
+            menuItem = <div className={cx('menuItem')} onClick={handlecamera}>{menu.name}</div>
+        } else if (menu.tpye == 'mike') {
+            menuItem = <div className={cx('menuItem')} onClick={handlemike}>{menu.name}</div>
+        } else if (menu.tpye == 'roster') {
+            menuItem = <div className={cx('menuItem')} onClick={handleroster}>{menu.name}</div>
+        } else if (menu.tpye == 'line') {
+            menuItem = <div className={cx('menuItem')} onClick={handleline}>{menu.name}</div>
         }
         //alert(menu)
         return menuItem
@@ -49,19 +46,19 @@ export default function rosterContextmenu(props: { rosterMenuItems: any[]; visib
 
     return (
         <div>
-            {visible?(
-                <div className={cx('rosterMenuList')}>
-                    {
-                        rosterMenuItems &&
-                        rosterMenuItems.map((rosterMenu: rosterContextmenuType,index) => {
-                            return (
-                                <div key={index} className={cx('menuItem')} onClick={handleline}>{rosterMenu.name}</div>
-                            )
-                        })
-                    }
-
-                </div>
-            ):null}
+            <div className={cx('rosterMenuList')}>
+                {
+                    rosterMenuItems &&
+                    rosterMenuItems.map((rosterMenu: rosterContextmenuType, index) => {
+                        return (
+                            <div key={index} className={cx('menuItem')} onClick={() => {
+                                setVisibleFlag(false);
+                                alert(visibleFlag)
+                            }}>{rosterMenu.name}</div>
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 

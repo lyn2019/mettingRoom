@@ -83,6 +83,7 @@
   background: var(--color_mine_shaft_medium);
   height: 100%;
   overflow: hidden;
+  position: relative;
 }
 
 .classroom.screenShareMode .right {
@@ -141,4 +142,13 @@
   z-index: 1;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(0.5rem);
+}
+
+.contextMenuBox{
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  height: auto;
+  margin-top: -50px;
+
 }

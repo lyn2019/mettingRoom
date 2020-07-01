@@ -1,15 +1,26 @@
 .rosterMenuList{
     display: block;
-    width: 300px;
+    max-width: 180px;
+    min-width: 100px;
+    width: fit-content;
     height: auto;
     box-sizing: border-box;
-    border: 1px solid #eee;
-    background: #f9f9f9;
-    padding: 5px;
+    border: 1px solid #888;
+    background: rgba(255,255,255,0.6);
+    border-radius: 4px;
+    overflow: hidden;
+    font-size: 13px;
+    margin-left: 15px;
+
 }
 .rosterMenuList .menuItem{
-    width: 100%;
+    width: auto;
     height: 32px;
     line-height: 32px;
-    background: #ccc;
+    background: rgba(0,0,0,0.6);
+    padding: 0 10px;
+    border-bottom: 1px solid #888;
+}
+.rosterMenuList .menuItem:last-child{
+    border-bottom: none;
 }
