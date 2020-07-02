@@ -3,6 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+.rosterBox{
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  height: 100%;
+}
 .roster {
   color: var(--color_alabaster);
   height: 100%;

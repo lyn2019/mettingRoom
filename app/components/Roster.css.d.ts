@@ -5,6 +5,7 @@ declare const styles: {
   readonly "noAttendee": string;
   readonly "raisedHand": string;
   readonly "roster": string;
+  readonly "rosterBox": string;
   readonly "shake": string;
   readonly "video": string;
 };

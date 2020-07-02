@@ -11,9 +11,9 @@ import getChimeContext from '../context/getChimeContext';
 import useRoster from '../hooks/useRoster';
 import useRaisedHandAttendees from '../hooks/useRaisedHandAttendees';
 import RosterAttendeeType from '../types/RosterAttendeeType';
+
 import RosterMenu from "./RosterMenu";
 import styles from './Roster.css';
-import contextMenu from '../enums/contextMenu'
 
 
 const cx = classNames.bind(styles);
@@ -22,17 +22,10 @@ export default function Roster() {
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const roster = useRoster();
     const [videoAttendees, setVideoAttendees] = useState(new Set());
-    const [contextMenuvisible,setContextMenuvisible] = useState(0);
+    const [showflag,setShowflag] = useState(false);
+    const [coordinate,setCoordinate]=useState({x:0,y:0,w:0})
     const raisedHandAttendees = useRaisedHandAttendees();
     const intl = useIntl();
-    const contextMenuList = [
-        {type: contextMenu.camera, name: '开启学生摄像头', value: '0'},
-        {type: contextMenu.camera, name: '开启学生麦克风', value: '0'},
-        {type: contextMenu.camera, name: '请他离开', value: '0'},
-    ]
-    const handlercontextMenu=()=>{
-        setContextMenuvisible(1)
-    }
 
     useEffect(() => {
         const tileIds: { [tileId: number]: string } = {};
@@ -79,30 +72,35 @@ export default function Roster() {
     }
 
     return (
-        <div>
-            {contextMenuvisible==1&&<RosterMenu rosterMenuItems={contextMenuList}></RosterMenu>}
+        <div className={cx('rosterBox')} id='rosterBox'>
+            <RosterMenu show={showflag} position={coordinate} onclickMenu={() => {setShowflag(false)}}/>
             <div className={cx('roster')}>
                 {attendeeIds &&
                 attendeeIds.map((attendeeId: string) => {
                     const rosterAttendee: RosterAttendeeType = roster[attendeeId];
                     return (
-                        <div key={attendeeId} className={cx('attendee')} onContextMenu={handlercontextMenu}>
+                        <div key={attendeeId} className={cx('attendee')} onContextMenu={e=>{
+                            let w=document.getElementById('rosterBox')?.offsetWidth||0
+                            setShowflag(true),
+                                setCoordinate({x:e.nativeEvent.offsetX,y:e.nativeEvent.offsetY,w:w})
+
+                        }}>
                             <div className={cx('name')}>{rosterAttendee.name}</div>
                             {raisedHandAttendees.has(attendeeId) && (
                                 <div className={cx('raisedHand')}>
-                  <span
-                      role="img"
-                      aria-label={intl.formatMessage(
-                          {
-                              id: 'Roster.raiseHandAriaLabel'
-                          },
-                          {
-                              name: rosterAttendee.name
-                          }
-                      )}
-                  >
-                    ✋
-                  </span>
+                                  <span
+                                      role="img"
+                                      aria-label={intl.formatMessage(
+                                          {
+                                              id: 'Roster.raiseHandAriaLabel'
+                                          },
+                                          {
+                                              name: rosterAttendee.name
+                                          }
+                                      )}
+                                  >
+                                    ✋
+                                  </span>
                                 </div>
                             )}
                             {videoAttendees.has(attendeeId) && (
