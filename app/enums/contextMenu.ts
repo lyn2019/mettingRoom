@@ -3,7 +3,6 @@ enum ContextMenu {
     mike='mike',
     roster='roster',
     line='line',
-
 }
 export default ContextMenu
 

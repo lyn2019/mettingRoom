@@ -26,9 +26,7 @@ import RemoteVideoGroup from './RemoteVideoGroup';
 import Roster from './Roster';
 import ScreenPicker from './ScreenPicker';
 import ScreenShareHeader from './ScreenShareHeader';
-
 const cx = classNames.bind(styles);
-
 export default function Classroom() {
   Modal.setAppElement('body');
   const chime: ChimeSdkWrapper | null = useContext(getChimeContext());

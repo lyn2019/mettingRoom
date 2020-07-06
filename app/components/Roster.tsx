@@ -13,13 +13,18 @@ import useRaisedHandAttendees from '../hooks/useRaisedHandAttendees';
 import RosterAttendeeType from '../types/RosterAttendeeType';
 
 import RosterMenu from "./RosterMenu";
+import ClassMode from '../enums/ClassMode';
+
 import styles from './Roster.css';
+import getUIStateContext from "../context/getUIStateContext";
 
 
 const cx = classNames.bind(styles);
 
 export default function Roster() {
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
+    const [state] = useContext(getUIStateContext());
+
     const roster = useRoster();
     const [videoAttendees, setVideoAttendees] = useState(new Set());
     const [showflag, setShowflag] = useState(false);
@@ -82,6 +87,7 @@ export default function Roster() {
                     const rosterAttendee: RosterAttendeeType = roster[attendeeId];
                     return (
                         <div key={attendeeId} className={cx('attendee')} onContextMenu={e => {
+                            if(state.classMode!==ClassMode.Teacher)return
                             let w = document.getElementById('rosterBox')?.offsetWidth || 0
                             setShowflag(true);
                              let leftBoxW=document.getElementById('leftBox')?.offsetWidth||0

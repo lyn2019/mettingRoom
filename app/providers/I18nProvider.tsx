@@ -9,7 +9,7 @@ import en from '../i18n/en-US';
 import jp from '../i18n/ja-JP';
 import cn from '../i18n/zh_CN';
 
-const DEFAULT_LOCALE = 'cn';
+const DEFAULT_LOCALE = 'en';
 
 const messages = {
   en,

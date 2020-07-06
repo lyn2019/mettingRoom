@@ -5,7 +5,6 @@ import classNames from 'classnames/bind';
 import React, { useContext, useEffect, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 import { useHistory } from 'react-router-dom';
-
 import ChimeSdkWrapper from '../chime/ChimeSdkWrapper';
 import routes from '../constants/routes.json';
 import getChimeContext from '../context/getChimeContext';
