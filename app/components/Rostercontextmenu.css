@@ -36,8 +36,9 @@
 .rosterMenuList .menuItem:last-child{
     border-bottom: none;
     text-align: center;
-    background: rgba(255,255,255,0.9);
+    background: rgba(195, 195, 195, 0.9);
     color: #222;
+    font-weight: bold;
 
 }
 .rosterMenuList .menuItem:last-child .icon{

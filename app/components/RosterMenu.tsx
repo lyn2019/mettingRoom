@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 type Props = {
     show: boolean;
     onclickMenu:()=>void;
-    position:{x:number,y:number}
+    position:{x:number,y:number,w:number}
 }
 
 export default function rosterContextmenu(props: Props) {
@@ -24,10 +24,13 @@ export default function rosterContextmenu(props: Props) {
     const rosterMenuItems = contextMenuList;
     useEffect(() => {
         setVisibleFlag(show);
-        let eRosterMenuList=document.getElementById("rosterMenuList");
-        let eRosterMenuListWarpe=eRosterMenuList?.parentNode
-        console.log(positionX)
-        //setPositionX(eRosterMenuListWarpe)
+        let menuItemW=document.getElementById("rosterMenuList")?.offsetWidth||0;
+        let warperW=position.w
+        if(warperW-position.x>=menuItemW){
+            setPositionX(position.x)
+        }else {
+            setPositionX(warperW-menuItemW-30)
+        }
 
     })
     const handleClick = (type: any) => {
@@ -38,7 +41,7 @@ export default function rosterContextmenu(props: Props) {
     return (
         <div>
             {visibleFlag ? (
-                <div id='rosterMenuList' className={cx('rosterMenuList')} style={{left:positionX,top:position.y+10}}>
+                <div id='rosterMenuList' className={cx('rosterMenuList')} style={{left:positionX,top:position.y+15}}>
                     {
                         rosterMenuItems &&
                         rosterMenuItems.map((rosterMenu: any) => {

@@ -108,7 +108,7 @@ export default function Classroom() {
       {meetingStatus === MeetingStatus.Succeeded && (
         <>
           <>
-            <div className={cx('left')}>
+            <div className={cx('left')} id={'leftBox'}>
               {viewMode === ViewMode.ScreenShare && (
                 <ScreenShareHeader onClickStopButton={stopContentShare} />
               )}

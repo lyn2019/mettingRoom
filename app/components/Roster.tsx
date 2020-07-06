@@ -22,8 +22,8 @@ export default function Roster() {
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const roster = useRoster();
     const [videoAttendees, setVideoAttendees] = useState(new Set());
-    const [showflag,setShowflag] = useState(false);
-    const [coordinate,setCoordinate]=useState({x:0,y:0,w:0})
+    const [showflag, setShowflag] = useState(false);
+    const [coordinate, setCoordinate] = useState({x: 0, y: 0, w: 0})
     const raisedHandAttendees = useRaisedHandAttendees();
     const intl = useIntl();
 
@@ -73,17 +73,19 @@ export default function Roster() {
 
     return (
         <div className={cx('rosterBox')} id='rosterBox'>
-            <RosterMenu show={showflag} position={coordinate} onclickMenu={() => {setShowflag(false)}}/>
+            <RosterMenu show={showflag} position={coordinate} onclickMenu={() => {
+                setShowflag(false)
+            }}/>
             <div className={cx('roster')}>
                 {attendeeIds &&
                 attendeeIds.map((attendeeId: string) => {
                     const rosterAttendee: RosterAttendeeType = roster[attendeeId];
                     return (
-                        <div key={attendeeId} className={cx('attendee')} onContextMenu={e=>{
-                            let w=document.getElementById('rosterBox')?.offsetWidth||0
-                            setShowflag(true),
-                                setCoordinate({x:e.nativeEvent.offsetX,y:e.nativeEvent.offsetY,w:w})
-
+                        <div key={attendeeId} className={cx('attendee')} onContextMenu={e => {
+                            let w = document.getElementById('rosterBox')?.offsetWidth || 0
+                            setShowflag(true);
+                             let leftBoxW=document.getElementById('leftBox')?.offsetWidth||0
+                            setCoordinate({x: e.nativeEvent.clientX-leftBoxW, y: e.nativeEvent.clientY, w: w})
                         }}>
                             <div className={cx('name')}>{rosterAttendee.name}</div>
                             {raisedHandAttendees.has(attendeeId) && (
