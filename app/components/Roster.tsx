@@ -29,10 +29,17 @@ export default function Roster() {
     const [videoAttendees, setVideoAttendees] = useState(new Set());
     const [showflag, setShowflag] = useState(false);
     const [coordinate, setCoordinate] = useState({x: 0, y: 0, w: 0})
+    const [currentAttendeeId, setCurrentAttendeeId] = useState('')
     const raisedHandAttendees = useRaisedHandAttendees();
     const intl = useIntl();
 
     useEffect(() => {
+        const joinRoomMessaging = async () => {
+            await chime?.joinRoomMessaging('direct',(data:any)=>{
+                console.log(data)
+            });
+        };
+        joinRoomMessaging();
         const tileIds: { [tileId: number]: string } = {};
         // <tileId, attendeeId>
         const realTimeVideoAttendees = new Set();
@@ -78,7 +85,7 @@ export default function Roster() {
 
     return (
         <div className={cx('rosterBox')} id='rosterBox'>
-            <RosterMenu show={showflag} position={coordinate} onclickMenu={() => {
+            <RosterMenu show={showflag} position={coordinate} attendeeId={currentAttendeeId} onclickMenu={() => {
                 setShowflag(false)
             }}/>
             <div className={cx('roster')}>
@@ -92,6 +99,7 @@ export default function Roster() {
                             setShowflag(true);
                              let leftBoxW=document.getElementById('leftBox')?.offsetWidth||0
                             setCoordinate({x: e.nativeEvent.clientX-leftBoxW, y: e.nativeEvent.clientY, w: w})
+                            setCurrentAttendeeId(attendeeId)
                         }}>
                             <div className={cx('name')}>{rosterAttendee.name}</div>
                             {raisedHandAttendees.has(attendeeId) && (
