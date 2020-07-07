@@ -10,36 +10,26 @@ import ChimeSdkWrapper from '../chime/ChimeSdkWrapper';
 import getChimeContext from '../context/getChimeContext';
 import useRoster from '../hooks/useRoster';
 import useRaisedHandAttendees from '../hooks/useRaisedHandAttendees';
-import RosterAttendeeType from '../types/RosterAttendeeType';
-
 import RosterMenu from "./RosterMenu";
-import ClassMode from '../enums/ClassMode';
-
-import styles from './Roster.css';
 import getUIStateContext from "../context/getUIStateContext";
-
+import RosterAttendeeType from '../types/RosterAttendeeType';
+import ClassMode from '../enums/ClassMode';
+import styles from './Roster.css';
 
 const cx = classNames.bind(styles);
 
 export default function Roster() {
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const [state] = useContext(getUIStateContext());
-
     const roster = useRoster();
     const [videoAttendees, setVideoAttendees] = useState(new Set());
     const [showflag, setShowflag] = useState(false);
     const [coordinate, setCoordinate] = useState({x: 0, y: 0, w: 0})
     const [currentAttendeeId, setCurrentAttendeeId] = useState('')
+    const [deviceStatus, setDeviceStatus] = useState({camera:false,muted:false})
     const raisedHandAttendees = useRaisedHandAttendees();
     const intl = useIntl();
-
     useEffect(() => {
-        const joinRoomMessaging = async () => {
-            await chime?.joinRoomMessaging('direct',(data:any)=>{
-                console.log(data)
-            });
-        };
-        joinRoomMessaging();
         const tileIds: { [tileId: number]: string } = {};
         // <tileId, attendeeId>
         const realTimeVideoAttendees = new Set();
@@ -85,7 +75,7 @@ export default function Roster() {
 
     return (
         <div className={cx('rosterBox')} id='rosterBox'>
-            <RosterMenu show={showflag} position={coordinate} attendeeId={currentAttendeeId} onclickMenu={() => {
+            <RosterMenu show={showflag} position={coordinate} attendeeId={currentAttendeeId} deviceStatus={deviceStatus} onclickMenu={() => {
                 setShowflag(false)
             }}/>
             <div className={cx('roster')}>
@@ -94,12 +84,13 @@ export default function Roster() {
                     const rosterAttendee: RosterAttendeeType = roster[attendeeId];
                     return (
                         <div key={attendeeId} className={cx('attendee')} onContextMenu={e => {
-                            if(state.classMode!==ClassMode.Teacher)return
+                            if (state.classMode !== ClassMode.Teacher) return
                             let w = document.getElementById('rosterBox')?.offsetWidth || 0
                             setShowflag(true);
-                             let leftBoxW=document.getElementById('leftBox')?.offsetWidth||0
-                            setCoordinate({x: e.nativeEvent.clientX-leftBoxW, y: e.nativeEvent.clientY, w: w})
+                            let leftBoxW = document.getElementById('leftBox')?.offsetWidth || 0
+                            setCoordinate({x: e.nativeEvent.clientX - leftBoxW, y: e.nativeEvent.clientY, w: w})
                             setCurrentAttendeeId(attendeeId)
+                            setDeviceStatus({camera:videoAttendees.has(attendeeId),muted:rosterAttendee.muted||false})
                         }}>
                             <div className={cx('name')}>{rosterAttendee.name}</div>
                             {raisedHandAttendees.has(attendeeId) && (

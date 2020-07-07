@@ -68,6 +68,13 @@ export default {
 
     'Roster.raiseHandAriaLabel': `举起手 {name}`,
 
+    'RosterMenu.openStudentcamera':'开启学生摄像头',
+    'RosterMenu.closeStudentcamera':'关闭学生摄像头',
+    'RosterMenu.openStudentmike':'开启学生麦克风',
+    'RosterMenu.closeStudentmike':'关闭学生麦克风',
+    'RosterMenu.kickoutstudent':'踢出该学生',
+    'RosterMenu.close':'关闭',
+
     'RemoteVideo.raiseHandAriaLabel': `举起手`,
 
     'CPUUsage.getting': `获取CPU使用率...`
