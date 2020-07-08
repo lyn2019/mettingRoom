@@ -13,7 +13,6 @@ import ClassMode from '../enums/ClassMode';
 import ViewMode from '../enums/ViewMode';
 import styles from './Controls.css';
 import Tooltip from './Tooltip';
-
 const cx = classNames.bind(styles);
 
 enum VideoStatus {
@@ -41,7 +40,7 @@ export default function Controls(props: Props) {
     const intl = useIntl();
     useEffect(() => {
         if (deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
-            if (state.classMode == ClassMode.Teacher && viewMode === ViewMode.Room) {
+            if (state.classMode == ClassMode.Student && viewMode === ViewMode.Room) {
                 let cameraState = deviceData?.payload?.cameraState;
                 let mikeState = deviceData?.payload?.mikeState;
                 switch (deviceData.type) {
