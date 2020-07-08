@@ -13,6 +13,7 @@ import ClassMode from '../enums/ClassMode';
 import ViewMode from '../enums/ViewMode';
 import styles from './Controls.css';
 import Tooltip from './Tooltip';
+
 const cx = classNames.bind(styles);
 
 enum VideoStatus {
@@ -23,37 +24,33 @@ enum VideoStatus {
 
 type Props = {
     viewMode: ViewMode;
-    deviceData:any;
+    deviceData: any;
     onClickShareButton: () => void;
 };
 
 export default function Controls(props: Props) {
-    const {viewMode,deviceData, onClickShareButton} = props;
+    const {viewMode, deviceData, onClickShareButton} = props;
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const [state] = useContext(getUIStateContext());
     const history = useHistory();
     const [muted, setMuted] = useState(false);
     const [focus, setFocus] = useState(false);
     const [videoStatus, setVideoStatus] = useState(VideoStatus.Disabled);
-    const [videoVisibleFlag,SetvideoVisibleFlag]=useState(true)
-    const [mutedVisibleFlag,SetmutedVisibleFlag]=useState(true)
+    const [videoVisibleFlag, SetvideoVisibleFlag] = useState(true)
+    const [mutedVisibleFlag, SetmutedVisibleFlag] = useState(true)
     const intl = useIntl();
     useEffect(() => {
         if (deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
-            if(state.classMode==ClassMode.Teacher && viewMode === ViewMode.Room ){
+            if (state.classMode == ClassMode.Teacher && viewMode === ViewMode.Room) {
+                let cameraState = deviceData?.payload?.cameraState;
+                let mikeState = deviceData?.payload?.mikeState;
                 switch (deviceData.type) {
-                    case 'DEVICE-DECEMERA-TURNON':
-                        videoBtnClickHandler(true)
+                    case 'DEVICE-TURN-DECEMERA':
+                        videoBtnClickHandler(cameraState)
                         break;
-                    case 'DEVICE-CEMERA-TURNOFF':
-                        videoBtnClickHandler(false)
+                    case 'DEVICE-TURN-AUTO':
+                        mutedClickHandler(mikeState)
                         break;
-                    case 'DEVICE-AUTO-TURNOFF':
-                        mutedClickHandler(true)
-                        break;
-                    case 'DEVICE-AUTO-TURNOFF':
-                        mutedClickHandler(false)
-                        break
                     case 'DEVICE-LEAVEROOM':
                         leaveRoomHandler()
                         break;
@@ -61,14 +58,14 @@ export default function Controls(props: Props) {
             }
 
         }
-    },[deviceData])
+    }, [deviceData])
 
 
-    const videoBtnClickHandler=async (passive?:boolean)=>{
+    const videoBtnClickHandler = async (passive?: boolean) => {
         await new Promise(resolve => setTimeout(resolve, 10));
-        if(passive){
+        if (passive) {
             SetvideoVisibleFlag(true);
-        }else {
+        } else {
             SetvideoVisibleFlag(false);
         }
         if (videoStatus === VideoStatus.Disabled) {
@@ -94,10 +91,10 @@ export default function Controls(props: Props) {
         }
     }
 
-    const mutedClickHandler=async (passive?:boolean) => {
-        if(passive){
+    const mutedClickHandler = async (passive?: boolean) => {
+        if (passive) {
             SetmutedVisibleFlag(true);
-        }else {
+        } else {
             SetmutedVisibleFlag(false);
         }
         if (muted) {
@@ -109,7 +106,7 @@ export default function Controls(props: Props) {
         await new Promise(resolve => setTimeout(resolve, 10));
     }
 
-    const leaveRoomHandler=()=>{
+    const leaveRoomHandler = () => {
         chime?.leaveRoom(state.classMode === ClassMode.Teacher);
         history.push(routes.HOME);
     }
@@ -127,7 +124,7 @@ export default function Controls(props: Props) {
             }
         };
     }, []);
-      return (
+    return (
         <div
             className={cx('controls', {
                 roomMode: viewMode === ViewMode.Room,
@@ -172,7 +169,7 @@ export default function Controls(props: Props) {
                     </button>
                 </Tooltip>
             )}
-            {mutedVisibleFlag?(<Tooltip
+            {mutedVisibleFlag ? (<Tooltip
                 tooltip={
                     muted
                         ? intl.formatMessage({id: 'Controls.unmuteTooltip'})
@@ -184,7 +181,7 @@ export default function Controls(props: Props) {
                     className={cx('muteButton', {
                         enabled: !muted
                     })}
-                    onClick={()=>{
+                    onClick={() => {
                         mutedClickHandler()
                     }}
                 >
@@ -194,9 +191,9 @@ export default function Controls(props: Props) {
                         <i className="fas fa-microphone"/>
                     )}
                 </button>
-            </Tooltip>):null}
+            </Tooltip>) : null}
 
-            {videoVisibleFlag?(<Tooltip
+            {videoVisibleFlag ? (<Tooltip
                 tooltip={
                     videoStatus === VideoStatus.Disabled
                         ? intl.formatMessage({id: 'Controls.turnOnVideoTooltip'})
@@ -219,7 +216,7 @@ export default function Controls(props: Props) {
                         <i className="fas fa-video-slash"/>
                     )}
                 </button>
-            </Tooltip>):null}
+            </Tooltip>) : null}
 
             {state.classMode === ClassMode.Teacher &&
             viewMode !== ViewMode.ScreenShare && (

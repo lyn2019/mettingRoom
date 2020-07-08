@@ -1,8 +1,6 @@
 enum DeviceControDirect {
-    trunoncemera = 'DEVICE-DECEMERA-TURNON',
-    trunoffcemera = 'DEVICE-CEMERA-TURNOFF',
-    trunoffaudio = 'DEVICE-AUTO-TURNOFF',
-    trunonaudio = 'DEVICE-AUTO-TURNOFF',
+    truncemera = 'DEVICE-TURN-DECEMERA',
+    trunaudio = 'DEVICE-TURN-AUTO',
     leaveroom = 'DEVICE-LEAVEROOM'
 }
 

@@ -40,18 +40,20 @@ export default function rosterContextmenu(props: Props) {
     const sendDevice = (type: string) => {
         chime?.sendMessage(type, {
             attendeeId,
+            cameraState:cameraState,
+            mikeState:mikeState
         });
     }
     const handleClick = (type: any) => {
         console.log(type)
         switch (type) {
             case contextMenu.camera:
-                sendDevice(DeviceControDirect.trunoffcemera);
-                setcameraState(!cameraState)
+                sendDevice(DeviceControDirect.truncemera);
+                //setcameraState(!cameraState)
                 break;
             case contextMenu.mike:
-                sendDevice(DeviceControDirect.trunoffaudio);
-                setmikeState(!mikeState)
+                sendDevice(DeviceControDirect.trunaudio);
+                //setmikeState(!mikeState)
                 break;
             case contextMenu.roster:
                 sendDevice(DeviceControDirect.leaveroom);
