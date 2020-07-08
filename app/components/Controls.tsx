@@ -35,28 +35,31 @@ export default function Controls(props: Props) {
     const [muted, setMuted] = useState(false);
     const [focus, setFocus] = useState(false);
     const [videoStatus, setVideoStatus] = useState(VideoStatus.Disabled);
-    const [videoVisibleFlag,SetvideoVisibleFlag]=useState(false)
-    const [mutedVisibleFlag,SetmutedVisibleFlag]=useState(false)
+    const [videoVisibleFlag,SetvideoVisibleFlag]=useState(true)
+    const [mutedVisibleFlag,SetmutedVisibleFlag]=useState(true)
     const intl = useIntl();
     useEffect(() => {
         if (deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
-            switch (deviceData.type) {
-                case 'DEVICE-DECEMERA-TURNON':
-                    videoBtnClickHandler(true)
-                    break;
-                case 'DEVICE-CEMERA-TURNOFF':
-                    videoBtnClickHandler(false)
-                    break;
-                case 'DEVICE-AUTO-TURNOFF':
-                    mutedClickHandler(true)
-                    break;
-                case 'DEVICE-AUTO-TURNOFF':
-                    mutedClickHandler(false)
-                    break
-                case 'DEVICE-LEAVEROOM':
-                    leaveRoomHandler()
-                    break;
+            if(state.classMode==ClassMode.Teacher && viewMode === ViewMode.Room ){
+                switch (deviceData.type) {
+                    case 'DEVICE-DECEMERA-TURNON':
+                        videoBtnClickHandler(true)
+                        break;
+                    case 'DEVICE-CEMERA-TURNOFF':
+                        videoBtnClickHandler(false)
+                        break;
+                    case 'DEVICE-AUTO-TURNOFF':
+                        mutedClickHandler(true)
+                        break;
+                    case 'DEVICE-AUTO-TURNOFF':
+                        mutedClickHandler(false)
+                        break
+                    case 'DEVICE-LEAVEROOM':
+                        leaveRoomHandler()
+                        break;
+                }
             }
+
         }
     },[deviceData])
 
