@@ -68,10 +68,10 @@ export default {
 
     'Roster.raiseHandAriaLabel': `举起手 {name}`,
 
-    'RosterMenu.openStudentcamera':'开启学生摄像头',
-    'RosterMenu.closeStudentcamera':'关闭学生摄像头',
-    'RosterMenu.openStudentmike':'开启学生麦克风',
-    'RosterMenu.closeStudentmike':'关闭学生麦克风',
+    'RosterMenu.allowusecamera':'允许打开摄像头',
+    'RosterMenu.nousecamera':'禁止打开摄像头',
+    'RosterMenu.allowusemike':'允许开启麦克风',
+    'RosterMenu.nousemike':'禁止麦克风',
     'RosterMenu.kickoutstudent':'踢出该学生',
     'RosterMenu.close':'关闭',
 

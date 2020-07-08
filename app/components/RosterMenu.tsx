@@ -73,8 +73,8 @@ export default function rosterContextmenu(props: Props) {
                         <span className={cx('icon')}>
                             {cameraState ? (<i className={'fas fa-video'}/>) : <i className={'fas fa-video-slash'}/>}
                         </span>
-                        {cameraState ? (<FormattedMessage id="RosterMenu.openStudentcamera"/>) :
-                            <FormattedMessage id="RosterMenu.closeStudentcamera"/>}
+                        {cameraState ? (<FormattedMessage id="RosterMenu.allowusecamera"/>) :
+                            <FormattedMessage id="RosterMenu.nousecamera"/>}
                     </div>
 
                     <div className={cx('menuItem')} onClick={() => handleClick(contextMenu.mike)}>
@@ -82,8 +82,8 @@ export default function rosterContextmenu(props: Props) {
                         {mikeState ? (<span className='icon'><i className={'fas fa-microphone'}/></span>) :
                             <span className='icon'> <i className={'fas fa-microphone-slash'}/></span>}
                         </span>
-                        {mikeState ? (<FormattedMessage id="RosterMenu.openStudentmike"/>) :
-                            <FormattedMessage id="RosterMenu.closeStudentmike"/>}
+                        {mikeState ? (<FormattedMessage id="RosterMenu.allowusemike"/>) :
+                            <FormattedMessage id="RosterMenu.nousemike"/>}
                     </div>
 
                     <div className={cx('menuItem')} onClick={() => handleClick(contextMenu.roster)}>

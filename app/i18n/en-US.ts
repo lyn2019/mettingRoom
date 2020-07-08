@@ -68,10 +68,12 @@ export default {
     'ChatInput.raiseHandAriaLabel': `Raise hand`,
 
     'Roster.raiseHandAriaLabel': `Raised hand by {name}`,
-    'RosterMenu.openStudentcamera':'Open student camera',
-    'RosterMenu.closeStudentcamera':'Close student camera',
-    'RosterMenu.openStudentmike':'Open student mike',
-    'RosterMenu.closeStudentmike':'Close student mike',
+    'RosterMenu.allowusecamera':'Allow camera on',
+    'RosterMenu.nousecamera':'Do not turn on the camera',
+    'RosterMenu.allowusemike':'Allow microphone on',
+    'RosterMenu.nousemike':'No microphone',
+
+
     'RosterMenu.kickoutstudent':'Kick out the student',
     'RosterMenu.close':'Close',
 
