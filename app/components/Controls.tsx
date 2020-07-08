@@ -35,21 +35,23 @@ export default function Controls(props: Props) {
     const [muted, setMuted] = useState(false);
     const [focus, setFocus] = useState(false);
     const [videoStatus, setVideoStatus] = useState(VideoStatus.Disabled);
+    const [videoVisibleFlag,SetvideoVisibleFlag]=useState(false)
+    const [mutedVisibleFlag,SetmutedVisibleFlag]=useState(false)
     const intl = useIntl();
     useEffect(() => {
         if (deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
             switch (deviceData.type) {
                 case 'DEVICE-DECEMERA-TURNON':
-                    videoBtnClickHandler()
+                    videoBtnClickHandler(true)
                     break;
                 case 'DEVICE-CEMERA-TURNOFF':
-                    videoBtnClickHandler()
+                    videoBtnClickHandler(false)
                     break;
                 case 'DEVICE-AUTO-TURNOFF':
-                    mutedClickHandler()
+                    mutedClickHandler(true)
                     break;
                 case 'DEVICE-AUTO-TURNOFF':
-                    mutedClickHandler()
+                    mutedClickHandler(false)
                     break
                 case 'DEVICE-LEAVEROOM':
                     leaveRoomHandler()
@@ -59,8 +61,13 @@ export default function Controls(props: Props) {
     },[deviceData])
 
 
-    const videoBtnClickHandler=async ()=>{
+    const videoBtnClickHandler=async (passive?:boolean)=>{
         await new Promise(resolve => setTimeout(resolve, 10));
+        if(passive){
+            SetvideoVisibleFlag(true);
+        }else {
+            SetvideoVisibleFlag(false);
+        }
         if (videoStatus === VideoStatus.Disabled) {
             setVideoStatus(VideoStatus.Loading);
             try {
@@ -84,7 +91,12 @@ export default function Controls(props: Props) {
         }
     }
 
-    const mutedClickHandler=async () => {
+    const mutedClickHandler=async (passive?:boolean) => {
+        if(passive){
+            SetmutedVisibleFlag(true);
+        }else {
+            SetmutedVisibleFlag(false);
+        }
         if (muted) {
             chime?.audioVideo?.realtimeUnmuteLocalAudio();
         } else {
@@ -157,7 +169,7 @@ export default function Controls(props: Props) {
                     </button>
                 </Tooltip>
             )}
-            <Tooltip
+            {mutedVisibleFlag?(<Tooltip
                 tooltip={
                     muted
                         ? intl.formatMessage({id: 'Controls.unmuteTooltip'})
@@ -179,8 +191,9 @@ export default function Controls(props: Props) {
                         <i className="fas fa-microphone"/>
                     )}
                 </button>
-            </Tooltip>
-            <Tooltip
+            </Tooltip>):null}
+
+            {videoVisibleFlag?(<Tooltip
                 tooltip={
                     videoStatus === VideoStatus.Disabled
                         ? intl.formatMessage({id: 'Controls.turnOnVideoTooltip'})
@@ -203,7 +216,8 @@ export default function Controls(props: Props) {
                         <i className="fas fa-video-slash"/>
                     )}
                 </button>
-            </Tooltip>
+            </Tooltip>):null}
+
             {state.classMode === ClassMode.Teacher &&
             viewMode !== ViewMode.ScreenShare && (
                 <Tooltip

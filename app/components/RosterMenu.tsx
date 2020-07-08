@@ -21,8 +21,8 @@ export default function rosterContextmenu(props: Props) {
     const {show, onclickMenu, position, attendeeId,deviceStatus} = props;
     const [visibleFlag, setVisibleFlag] = useState(show)
     const [positionX, setPositionX] = useState(0)
-    const [cameraState, setcameraState] = useState(deviceStatus.camera)
-    const [mikeState, setmikeState] = useState(deviceStatus.muted)
+    const [cameraState, setcameraState] = useState(false)
+    const [mikeState, setmikeState] = useState(false)
     useEffect(() => {
         setVisibleFlag(show);
         let menuItemW = document.getElementById("rosterMenuList")?.offsetWidth || 0;
@@ -32,9 +32,10 @@ export default function rosterContextmenu(props: Props) {
         } else {
             setPositionX(warperW - menuItemW - 30)
         }
-        console.log(deviceStatus)
+        setmikeState(deviceStatus.muted)
+        setcameraState(!deviceStatus.camera)
 
-    },[position])
+    },[deviceStatus,position])
 
     const sendDevice = (type: string) => {
         chime?.sendMessage(type, {
