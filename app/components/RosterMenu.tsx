@@ -87,7 +87,7 @@ export default function rosterContextmenu(props: Props) {
                         <FormattedMessage id="RosterMenu.kickoutstudent"/>
                     </div>
 
-                    <div className={cx('menuItem')} onClick={() => handleClick(contextMenu.roster)}>
+                    <div className={cx('menuItem')} onClick={() => handleClick('')}>
                         <FormattedMessage id="RosterMenu.close"/>
                     </div>
                 </div>

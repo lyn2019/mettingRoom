@@ -46,14 +46,13 @@ export default function Controls(props: Props) {
                     videoBtnClickHandler()
                     break;
                 case 'DEVICE-AUTO-TURNOFF':
-                    chime?.audioVideo?.realtimeMuteLocalAudio();
+                    mutedClickHandler()
                     break;
                 case 'DEVICE-AUTO-TURNOFF':
-                    chime?.audioVideo?.realtimeUnmuteLocalAudio();
+                    mutedClickHandler()
                     break
                 case 'DEVICE-LEAVEROOM':
-                    chime?.leaveRoom(state.classMode === ClassMode.Teacher);
-                    history.push(routes.HOME);
+                    leaveRoomHandler()
                     break;
             }
         }
@@ -83,6 +82,21 @@ export default function Controls(props: Props) {
             chime?.audioVideo?.stopLocalVideoTile();
             setVideoStatus(VideoStatus.Disabled);
         }
+    }
+
+    const mutedClickHandler=async () => {
+        if (muted) {
+            chime?.audioVideo?.realtimeUnmuteLocalAudio();
+        } else {
+            chime?.audioVideo?.realtimeMuteLocalAudio();
+        }
+        // Adds a slight delay to close the tooltip before rendering the updated text in it
+        await new Promise(resolve => setTimeout(resolve, 10));
+    }
+
+    const leaveRoomHandler=()=>{
+        chime?.leaveRoom(state.classMode === ClassMode.Teacher);
+        history.push(routes.HOME);
     }
 
     useEffect(() => {
@@ -155,14 +169,8 @@ export default function Controls(props: Props) {
                     className={cx('muteButton', {
                         enabled: !muted
                     })}
-                    onClick={async () => {
-                        if (muted) {
-                            chime?.audioVideo?.realtimeUnmuteLocalAudio();
-                        } else {
-                            chime?.audioVideo?.realtimeMuteLocalAudio();
-                        }
-                        // Adds a slight delay to close the tooltip before rendering the updated text in it
-                        await new Promise(resolve => setTimeout(resolve, 10));
+                    onClick={()=>{
+                        mutedClickHandler()
                     }}
                 >
                     {muted ? (
@@ -224,8 +232,7 @@ export default function Controls(props: Props) {
                         type="button"
                         className={cx('endButton')}
                         onClick={() => {
-                            chime?.leaveRoom(state.classMode === ClassMode.Teacher);
-                            history.push(routes.HOME);
+                            leaveRoomHandler()
                         }}
                     >
                         <i className="fas fa-times"/>
