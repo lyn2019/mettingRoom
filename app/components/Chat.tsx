@@ -13,14 +13,17 @@ import ChatInput from './ChatInput';
 
 const cx = classNames.bind(styles);
 
-export default function Chat() {
+export default function Chat(props:any) {
+  const deviceMessageCallback=props.deviceMessageCallback;
   const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
   const [messages, setMessages] = useState<MessageType[]>([]);
   const bottomElement = useRef(null);
 
   useEffect(() => {
     const joinRoomMessaging = async () => {
-      await chime?.joinRoomMessaging();
+      await chime?.joinRoomMessaging(function (data:any) {
+        deviceMessageCallback(data)
+      });
     };
     joinRoomMessaging();
   }, []);

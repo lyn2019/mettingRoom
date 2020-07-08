@@ -32,7 +32,6 @@ export default function rosterContextmenu(props: Props) {
         } else {
             setPositionX(warperW - menuItemW - 30)
         }
-        console.log(deviceStatus)
 
     })
 

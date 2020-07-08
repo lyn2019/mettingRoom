@@ -345,41 +345,10 @@ export default class ChimeSdkWrapper implements DeviceChangeObserver {
     this.audioVideo?.start();
   };
 
-  joinRoomDirect = async (fn: (data: any) => void): Promise<void> => {
-
-    if (!this.configuration) {
-      this.logError(new Error('configuration does not exist'));
-      return;
-    }
-    const messagingUrl = `${getMessagingWssUrl()}?MeetingId=${
-      this.configuration.meetingId
-    }&AttendeeId=${this.configuration.credentials?.attendeeId}&JoinToken=${
-      this.configuration.credentials?.joinToken
-    }`;
-
-    this.directSocket=new ReconnectingPromisedWebSocket(
-      messagingUrl,
-      [],
-      'arraybuffer',
-      new DefaultPromisedWebSocketFactory(new DefaultDOMWebSocketFactory()),
-      new FullJitterBackoff(1000, 0, 10000)
-    );
-    await this.directSocket.open(ChimeSdkWrapper.WEB_SOCKET_TIMEOUT_MS);
-    this.directSocket.addEventListener('message', (event: Event) => {
-      try {
-        const data = JSON.parse((event as MessageEvent).data);
-        console.log(data)
-        fn(data)
-
-      } catch (error) {
-        this.logError(error);
-      }
-    })
-
-  };
 
 
-  joinRoomMessaging = async (type?: string, fn?: (data: any) => void): Promise<void> => {
+
+  joinRoomMessaging = async (fn?: (data: any) => void): Promise<void> => {
     if (!this.configuration) {
       this.logError(new Error('configuration does not exist'));
       return;
@@ -398,18 +367,14 @@ export default class ChimeSdkWrapper implements DeviceChangeObserver {
       new DefaultPromisedWebSocketFactory(new DefaultDOMWebSocketFactory()),
       new FullJitterBackoff(1000, 0, 10000)
     );
-
     await this.messagingSocket.open(ChimeSdkWrapper.WEB_SOCKET_TIMEOUT_MS);
-
     this.messagingSocket.addEventListener('message', (event: Event) => {
       try {
         const data = JSON.parse((event as MessageEvent).data);
-
-        if (type && type === 'direct') {
-          if (fn) {
-            fn(data);
+        if (data.type.indexOf('DEVICE')>-1) {
+          if(fn){
+            fn(data)
           }
-
         } else {
           const { attendeeId } = data.payload;
 
@@ -448,20 +413,7 @@ export default class ChimeSdkWrapper implements DeviceChangeObserver {
     }
   };
 
-  sendDirect = (type: string, payload: any) => {
-    if (!this.directSocket) {
-      return;
-    }
-    const message = {
-      message: 'sendmessage',
-      data: JSON.stringify({ type, payload })
-    };
-    try {
-      this.directSocket.send(JSON.stringify(message));
-    } catch (error) {
-      this.logError(error);
-    }
-  };
+
 
   leaveRoom = async (end: boolean): Promise<void> => {
     try {

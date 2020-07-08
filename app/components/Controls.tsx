@@ -13,8 +13,6 @@ import ClassMode from '../enums/ClassMode';
 import ViewMode from '../enums/ViewMode';
 import styles from './Controls.css';
 import Tooltip from './Tooltip';
-import DeviceControDirect from "../enums/DeviceControDirect";
-
 const cx = classNames.bind(styles);
 
 enum VideoStatus {
@@ -25,11 +23,12 @@ enum VideoStatus {
 
 type Props = {
     viewMode: ViewMode;
+    deviceData:any;
     onClickShareButton: () => void;
 };
 
 export default function Controls(props: Props) {
-    const {viewMode, onClickShareButton} = props;
+    const {viewMode,deviceData, onClickShareButton} = props;
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const [state] = useContext(getUIStateContext());
     const history = useHistory();
@@ -37,6 +36,30 @@ export default function Controls(props: Props) {
     const [focus, setFocus] = useState(false);
     const [videoStatus, setVideoStatus] = useState(VideoStatus.Disabled);
     const intl = useIntl();
+    useEffect(() => {
+        if (deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
+            switch (deviceData.type) {
+                case 'DEVICE-DECEMERA-TURNON':
+                    chime?.audioVideo?.startLocalVideoTile();
+                    break;
+                case 'DEVICE-CEMERA-TURNOFF':
+                    chime?.audioVideo?.stopLocalVideoTile();
+                    break;
+                case 'DEVICE-AUTO-TURNOFF':
+                    chime?.audioVideo?.realtimeMuteLocalAudio();
+                    break;
+                case 'DEVICE-AUTO-TURNOFF':
+                    chime?.audioVideo?.realtimeUnmuteLocalAudio();
+                    break
+                case 'DEVICE-LEAVEROOM':
+                    chime?.leaveRoom(state.classMode === ClassMode.Teacher);
+                    history.push(routes.HOME);
+                    break;
+            }
+        }
+    })
+
+
 
     useEffect(() => {
         const callback = (localMuted: boolean) => {
@@ -51,53 +74,7 @@ export default function Controls(props: Props) {
             }
         };
     }, []);
-
-    useEffect(() => {
-        const joinRoomMessaging = async () => {
-            await  chime?.joinRoomDirect((data)=>{
-                console.log(data)
-                if (data.payload.attendeeId == chime?.configuration?.credentials?.attendeeId) {
-                    console.log('yes='+data.type)
-                    switch (data.type) {
-                        case DeviceControDirect.trunoncemera:
-                            chime?.audioVideo?.startLocalVideoTile();
-                            break;
-                        case 'CEMERA-TURNOFF':
-                            chime?.audioVideo?.stopLocalVideoTile();
-                            break;
-                        case DeviceControDirect.trunoffaudio:
-                            chime?.audioVideo?.realtimeMuteLocalAudio();
-                            break;
-                        case DeviceControDirect.trunonaudio:
-                            chime?.audioVideo?.realtimeUnmuteLocalAudio();
-                            break
-                        case DeviceControDirect.leaveroom:
-                            chime?.leaveRoom(state.classMode === ClassMode.Teacher);
-                            history.push(routes.HOME);
-                            break;
-                    }
-                }
-
-            });
-        };
-        joinRoomMessaging();
-
-    }, []);
-
-   /* useEffect(() => {
-        chime?.messagingSocket?.addEventListener('message', (event: Event) => {
-            alert()
-            try {
-                const data = JSON.parse((event as MessageEvent).data);
-                console.log(data)
-                console.log(JSON.stringify(chime?.configuration))
-            } catch (error) {
-                console.error(error);
-            }
-        })
-    }, []);*/
-
-    return (
+      return (
         <div
             className={cx('controls', {
                 roomMode: viewMode === ViewMode.Room,

@@ -36,6 +36,7 @@ export default function Classroom() {
   const [viewMode, setViewMode] = useState(ViewMode.Room);
   const [isModeTransitioning, setIsModeTransitioning] = useState(false);
   const [isPickerEnabled, setIsPickerEnabled] = useState(false);
+  const [deviceData, setdeviceData] = useState({});
 
   const stopContentShare = async () => {
     setIsModeTransitioning(true);
@@ -66,6 +67,9 @@ export default function Classroom() {
     },
     [viewMode]
   );
+  const seteviceData=(data:any)=>{
+    setdeviceData(data)
+  }
 
   if (process.env.NODE_ENV === 'production') {
     useEffect(() => {
@@ -123,6 +127,7 @@ export default function Classroom() {
                 <div className={cx('controls')}>
                   <Controls
                     viewMode={viewMode}
+                    deviceData={deviceData}
                     onClickShareButton={() => {
                       setIsPickerEnabled(true);
                     }}
@@ -147,7 +152,7 @@ export default function Classroom() {
                 <Roster />
               </div>
               <div className={cx('chat')}>
-                <Chat />
+                <Chat deviceMessageCallback={seteviceData}/>
               </div>
             </div>
           </>
