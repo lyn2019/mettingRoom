@@ -53,16 +53,16 @@ export default function Controls(props: Props) {
     }, []);
 
     useEffect(() => {
-        chime?.messagingSocket?.addEventListener('message', (event: Event) => {
-            try {
-                const data = JSON.parse((event as MessageEvent).data);
+        const joinRoomMessaging = async () => {
+            await  chime?.joinRoomDirect((data)=>{
                 console.log(data)
                 if (data.payload.attendeeId == chime?.configuration?.credentials?.attendeeId) {
+                    console.log('yes='+data.type)
                     switch (data.type) {
                         case DeviceControDirect.trunoncemera:
                             chime?.audioVideo?.startLocalVideoTile();
                             break;
-                        case DeviceControDirect.trunoffaudio:
+                        case 'CEMERA-TURNOFF':
                             chime?.audioVideo?.stopLocalVideoTile();
                             break;
                         case DeviceControDirect.trunoffaudio:
@@ -77,11 +77,25 @@ export default function Controls(props: Props) {
                             break;
                     }
                 }
+
+            });
+        };
+        joinRoomMessaging();
+
+    }, []);
+
+   /* useEffect(() => {
+        chime?.messagingSocket?.addEventListener('message', (event: Event) => {
+            alert()
+            try {
+                const data = JSON.parse((event as MessageEvent).data);
+                console.log(data)
+                console.log(JSON.stringify(chime?.configuration))
             } catch (error) {
                 console.error(error);
             }
         })
-    }, []);
+    }, []);*/
 
     return (
         <div
