@@ -40,10 +40,10 @@ export default function Controls(props: Props) {
         if (deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
             switch (deviceData.type) {
                 case 'DEVICE-DECEMERA-TURNON':
-                    chime?.audioVideo?.startLocalVideoTile();
+                    videoBtnClickHandler()
                     break;
                 case 'DEVICE-CEMERA-TURNOFF':
-                    chime?.audioVideo?.stopLocalVideoTile();
+                    videoBtnClickHandler()
                     break;
                 case 'DEVICE-AUTO-TURNOFF':
                     chime?.audioVideo?.realtimeMuteLocalAudio();
@@ -60,6 +60,30 @@ export default function Controls(props: Props) {
     })
 
 
+    const videoBtnClickHandler=async ()=>{
+        await new Promise(resolve => setTimeout(resolve, 10));
+        if (videoStatus === VideoStatus.Disabled) {
+            setVideoStatus(VideoStatus.Loading);
+            try {
+                if (!chime?.currentVideoInputDevice) {
+                    throw new Error('currentVideoInputDevice does not exist');
+                }
+                await chime?.chooseVideoInputDevice(
+                    chime?.currentVideoInputDevice
+                );
+                chime?.audioVideo?.startLocalVideoTile();
+                setVideoStatus(VideoStatus.Enabled);
+            } catch (error) {
+                // eslint-disable-next-line
+                console.error(error);
+                setVideoStatus(VideoStatus.Disabled);
+            }
+        } else if (videoStatus === VideoStatus.Enabled) {
+            setVideoStatus(VideoStatus.Loading);
+            chime?.audioVideo?.stopLocalVideoTile();
+            setVideoStatus(VideoStatus.Disabled);
+        }
+    }
 
     useEffect(() => {
         const callback = (localMuted: boolean) => {
@@ -160,30 +184,9 @@ export default function Controls(props: Props) {
                     className={cx('videoButton', {
                         enabled: videoStatus === VideoStatus.Enabled
                     })}
-                    onClick={async () => {
+                    onClick={() => {
                         // Adds a slight delay to close the tooltip before rendering the updated text in it
-                        await new Promise(resolve => setTimeout(resolve, 10));
-                        if (videoStatus === VideoStatus.Disabled) {
-                            setVideoStatus(VideoStatus.Loading);
-                            try {
-                                if (!chime?.currentVideoInputDevice) {
-                                    throw new Error('currentVideoInputDevice does not exist');
-                                }
-                                await chime?.chooseVideoInputDevice(
-                                    chime?.currentVideoInputDevice
-                                );
-                                chime?.audioVideo?.startLocalVideoTile();
-                                setVideoStatus(VideoStatus.Enabled);
-                            } catch (error) {
-                                // eslint-disable-next-line
-                                console.error(error);
-                                setVideoStatus(VideoStatus.Disabled);
-                            }
-                        } else if (videoStatus === VideoStatus.Enabled) {
-                            setVideoStatus(VideoStatus.Loading);
-                            chime?.audioVideo?.stopLocalVideoTile();
-                            setVideoStatus(VideoStatus.Disabled);
-                        }
+                        videoBtnClickHandler()
                     }}
                 >
                     {videoStatus === VideoStatus.Enabled ? (
