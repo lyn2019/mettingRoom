@@ -56,7 +56,7 @@ export default function Controls(props: Props) {
                     break;
             }
         }
-    })
+    },[deviceData])
 
 
     const videoBtnClickHandler=async ()=>{

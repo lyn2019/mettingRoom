@@ -34,7 +34,7 @@ export default function rosterContextmenu(props: Props) {
         }
         console.log(deviceStatus)
 
-    })
+    },[position])
 
     const sendDevice = (type: string) => {
         chime?.sendMessage(type, {
