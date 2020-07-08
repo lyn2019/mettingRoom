@@ -45,7 +45,7 @@ export default function rosterContextmenu(props: Props) {
         console.log(type)
         switch (type) {
             case contextMenu.camera:
-                sendDevice(DeviceControDirect.trunoncemera);
+                sendDevice(DeviceControDirect.trunoffcemera);
                 setcameraState(!cameraState)
                 break;
             case contextMenu.mike:
