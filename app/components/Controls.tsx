@@ -39,34 +39,55 @@ export default function Controls(props: Props) {
     const [mutedVisibleFlag, SetmutedVisibleFlag] = useState(true)
     const intl = useIntl();
     useEffect(() => {
-        if (deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
+        let ignore=false;
+        if (!ignore&&deviceData?.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId) {
             if (state.classMode == ClassMode.Student && viewMode === ViewMode.Room) {
-                let cameraState = deviceData?.payload?.cameraState;
-                let mikeState = deviceData?.payload?.mikeState;
-                switch (deviceData.type) {
-                    case 'DEVICE-TURN-DECEMERA':
-                        videoBtnClickHandler(cameraState)
-                        break;
-                    case 'DEVICE-TURN-AUTO':
-                        mutedClickHandler(mikeState)
-                        break;
-                    case 'DEVICE-LEAVEROOM':
-                        leaveRoomHandler()
-                        break;
-                }
+                eventHandler()
             }
 
         }
+        return()=>{
+            ignore=true
+        }
+
     }, [deviceData])
 
-
-    const videoBtnClickHandler = async (passive?: boolean) => {
-        await new Promise(resolve => setTimeout(resolve, 10));
-        if (passive) {
-            SetvideoVisibleFlag(true);
-        } else {
-            SetvideoVisibleFlag(false);
+    const eventHandler=async ()=>{
+        let cameraState = deviceData?.payload?.cameraState;
+        let mikeState = deviceData?.payload?.mikeState;
+        switch (deviceData.type) {
+            case 'DEVICE-TURN-DECEMERA':
+              //  videoBtnClickHandler(cameraState)
+                await new Promise(resolve => setTimeout(resolve, 10));
+                if (cameraState) {
+                    SetvideoVisibleFlag(true);
+                } else {
+                    SetvideoVisibleFlag(false);
+                }
+                if(videoStatus === VideoStatus.Enabled) {
+                    setVideoStatus(VideoStatus.Loading);
+                    chime?.audioVideo?.stopLocalVideoTile();
+                    setVideoStatus(VideoStatus.Disabled);
+                }
+                break;
+            case 'DEVICE-TURN-AUTO':
+               // mutedClickHandler(mikeState)
+                if (mikeState) {
+                    SetmutedVisibleFlag(true);
+                } else {
+                    SetmutedVisibleFlag(false);
+                }
+                break;
+            case 'DEVICE-LEAVEROOM':
+                leaveRoomHandler()
+                break;
         }
+    }
+
+
+    const videoBtnClickHandler = async () => {
+        await new Promise(resolve => setTimeout(resolve, 10));
+
         if (videoStatus === VideoStatus.Disabled) {
             setVideoStatus(VideoStatus.Loading);
             try {
@@ -87,6 +108,9 @@ export default function Controls(props: Props) {
             setVideoStatus(VideoStatus.Loading);
             chime?.audioVideo?.stopLocalVideoTile();
             setVideoStatus(VideoStatus.Disabled);
+            if (!muted) {
+                chime?.audioVideo?.realtimeMuteLocalAudio();
+            }
         }
     }
 

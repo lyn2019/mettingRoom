@@ -24,16 +24,23 @@ export default function rosterContextmenu(props: Props) {
     const [cameraState, setcameraState] = useState(false)
     const [mikeState, setmikeState] = useState(false)
     useEffect(() => {
-        setVisibleFlag(show);
-        let menuItemW = document.getElementById("rosterMenuList")?.offsetWidth || 0;
-        let warperW = position.w
-        if (warperW - position.x >= menuItemW) {
-            setPositionX(position.x)
-        } else {
-            setPositionX(warperW - menuItemW - 30)
+        let ignore=false;
+        if(!ignore){
+            setVisibleFlag(show);
+            let menuItemW = document.getElementById("rosterMenuList")?.offsetWidth || 0;
+            let warperW = position.w
+            if (warperW - position.x >= menuItemW) {
+                setPositionX(position.x)
+            } else {
+                setPositionX(warperW - menuItemW - 30)
+            }
+            setmikeState(deviceStatus.muted)
+            setcameraState(!deviceStatus.camera)
         }
-        setmikeState(deviceStatus.muted)
-        setcameraState(!deviceStatus.camera)
+        return()=>{
+            ignore=true
+        }
+
 
     },[deviceStatus,position])
 
