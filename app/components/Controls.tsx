@@ -44,7 +44,6 @@ export default function Controls(props: Props) {
             if (state.classMode == ClassMode.Student && viewMode === ViewMode.Room) {
                 eventHandler()
             }
-
         }
         return()=>{
             ignore=true
@@ -77,6 +76,9 @@ export default function Controls(props: Props) {
                 } else {
                     SetmutedVisibleFlag(false);
                 }
+                if (!muted) {
+                    chime?.audioVideo?.realtimeMuteLocalAudio();
+                }
                 break;
             case 'DEVICE-LEAVEROOM':
                 leaveRoomHandler()
@@ -87,7 +89,6 @@ export default function Controls(props: Props) {
 
     const videoBtnClickHandler = async () => {
         await new Promise(resolve => setTimeout(resolve, 10));
-
         if (videoStatus === VideoStatus.Disabled) {
             setVideoStatus(VideoStatus.Loading);
             try {
@@ -108,18 +109,11 @@ export default function Controls(props: Props) {
             setVideoStatus(VideoStatus.Loading);
             chime?.audioVideo?.stopLocalVideoTile();
             setVideoStatus(VideoStatus.Disabled);
-            if (!muted) {
-                chime?.audioVideo?.realtimeMuteLocalAudio();
-            }
+
         }
     }
 
-    const mutedClickHandler = async (passive?: boolean) => {
-        if (passive) {
-            SetmutedVisibleFlag(true);
-        } else {
-            SetmutedVisibleFlag(false);
-        }
+    const mutedClickHandler = async () => {
         if (muted) {
             chime?.audioVideo?.realtimeUnmuteLocalAudio();
         } else {
