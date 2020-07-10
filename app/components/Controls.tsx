@@ -63,11 +63,6 @@ export default function Controls(props: Props) {
                 } else {
                     SetvideoVisibleFlag(false);
                 }
-                if(videoStatus === VideoStatus.Enabled) {
-                    setVideoStatus(VideoStatus.Loading);
-                    chime?.audioVideo?.stopLocalVideoTile();
-                    setVideoStatus(VideoStatus.Disabled);
-                }
                 break;
             case 'DEVICE-TURN-AUTO':
                // mutedClickHandler(mikeState)
