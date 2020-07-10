@@ -32,8 +32,11 @@ export default {
     'CreateOrJoin.serverError': `Server error`,
     'CreateOrJoin.chooseLanguage': `选择语言`,
 
-
     'Classroom.classroom': `Classroom`,
+    'Classroom.askaboutcamera':'The teacher asked to turn on the camera',
+    'Classroom.askaboutmike':'The teacher asked to open Mike',
+    'Classroom.layerOkBtn':'allow',
+    'Classroom.layercancelBtn':'not allow',
 
     'RemoteVideoGroup.noVideo': `No one is sharing video`,
 

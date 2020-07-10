@@ -63,6 +63,8 @@ export default function Controls(props: Props) {
                 } else {
                     SetvideoVisibleFlag(false);
                 }
+                videoBtnClickHandler()
+
                 break;
             case 'DEVICE-TURN-AUTO':
                // mutedClickHandler(mikeState)
@@ -71,9 +73,7 @@ export default function Controls(props: Props) {
                 } else {
                     SetmutedVisibleFlag(false);
                 }
-                if (!muted) {
-                    chime?.audioVideo?.realtimeMuteLocalAudio();
-                }
+                mutedClickHandler()
                 break;
             case 'DEVICE-LEAVEROOM':
                 leaveRoomHandler()

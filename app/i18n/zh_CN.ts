@@ -33,6 +33,10 @@ export default {
     'CreateOrJoin.chooseLanguage': `选择语言`,
 
     'Classroom.classroom': `课堂`,
+    'Classroom.askaboutcamera':'老师请求开启摄像头，是否允许？',
+    'Classroom.askaboutmike':'老师请求开启麦克风，是否允许？',
+    'Classroom.layerOkBtn':'允许',
+    'Classroom.layercancelBtn':'不允许',
 
     'RemoteVideoGroup.noVideo': `没有人分享视频`,
 

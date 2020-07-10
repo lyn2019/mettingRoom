@@ -34,6 +34,10 @@ export default {
 
 
     'Classroom.classroom': `Classroom`,
+    'Classroom.askaboutcamera':'老师请求开启摄像头，是否允许？',
+    'Classroom.askaboutmike':'老师请求开启麦克风，是否允许？',
+    'Classroom.layerOkBtn':'允许',
+    'Classroom.layercancelBtn':'不允许',
 
     'RemoteVideoGroup.noVideo': `No one is sharing video`,
 
