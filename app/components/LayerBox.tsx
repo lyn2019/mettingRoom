@@ -1,49 +1,54 @@
 import classNames from 'classnames/bind';
 import styles from './LayerBox.css'
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 const cx = classNames.bind(styles);
 type Props = {
     layerOption: {
-        style?: {};
         content: string;
-        confirm?: string;
-        cancel?: string;
-        confirmCallBack?: () => void;
-        cancelCallback?: () => void;
+        confirm?: {
+            label:string;
+            callback?:()=>void
+        };
+        cancel?: {
+            label:string;
+            callback?:()=>void;
+        };
     };
     isOPen: boolean;
 }
 
+
+
 export default function layerBox(props: Props) {
     const {layerOption, isOPen} = props;
-    const [layertext,]=useState(layerOption.content)
-
-    useEffect(() => {
-
-    })
-
+    const [isOPenLayer,setIsOPenLayer]=useState(isOPen)
+    const callback=()=>{
+        setIsOPenLayer(false)
+    }
     return (
         <>
-            {isOPen ? (
-                <div className={cx('confrimBox')} style={layerOption.style}>
+            {isOPenLayer ? (
+                <div className={cx('confrimBox')}>
                     <div className={cx('content')}>
-                        <span>{layertext}</span>
+                        <span>{layerOption.content}</span>
                     </div>
                     <div className={cx('btnBox')}>
                         {layerOption.confirm?(
                             <div className={cx('btnItem')} onClick={()=>{
-                                if(layerOption.confirmCallBack)layerOption.confirmCallBack()
+                                if(layerOption.confirm?.callback)layerOption.confirm?.callback()
+                                callback()
                             }}>
-                                {layerOption.confirm}
+                                {layerOption.confirm.label}
                             </div>
                         ):null}
                         {layerOption.cancel?(
                             <div className={cx('btnItem')} onClick={()=>{
-                                if(layerOption.confirmCallBack)layerOption.confirmCallBack()
+                                if(layerOption.cancel?.callback)layerOption.cancel?.callback()
+                                callback()
 
                             }}>
-                                {layerOption.cancel}
+                                {layerOption.cancel.label}
                             </div>
                         ):null
                         }
