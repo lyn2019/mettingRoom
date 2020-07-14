@@ -22,6 +22,7 @@ export default function Roster() {
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const [state] = useContext(getUIStateContext());
     const roster = useRoster();
+
     const [videoAttendees, setVideoAttendees] = useState(new Set());
     const [showflag, setShowflag] = useState(false);
     const [coordinate, setCoordinate] = useState({x: 0, y: 0, w: 0})

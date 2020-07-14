@@ -81,5 +81,11 @@ export default {
 
     'RemoteVideo.raiseHandAriaLabel': `Raised hand`,
 
-    'CPUUsage.getting': `Getting CPU usage...`
+    'CPUUsage.getting': `Getting CPU usage...`,
+
+    'SettingMenu.screen.setting':'屏幕设置',
+    'SettingMenu.hideBtn.sider':'隐藏侧边栏',
+    'SettingMenu.showBtn.sider':'显示侧边栏',
+    'SettingMenu.hideBtn.control':'隐藏底部控制区',
+    'SettingMenu.showBtn.control':'显示底部控制区'
 };
