@@ -1,10 +1,9 @@
 import axios from 'axios'
-import { message } from 'antd';
 
 
 // create an axios instance
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
+  baseURL: 'http://localhost:8801', // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
   timeout: 5000 // request timeout
 })
@@ -12,6 +11,9 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
   config => {
+
+
+
     // do something before request is sent
 
     /*if (store.getters.token) {
@@ -45,10 +47,11 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
+    console.log(response)
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.code === 403) {
-      message.error(res.errMsg || 'Error')
+      //message.error(res.errMsg || 'Error')
       // Message({
       //   message: res.errMsg  || 'Error',
       //   dangerouslyUseHTMLString:true,
@@ -64,7 +67,8 @@ service.interceptors.response.use(
       // }
       // return Promise.reject(Message)
     } else if (res.code !== 200) {
-      message.error(res.msg || 'Error')
+      //message.error(res.msg || 'Error')
+      return res
       // Message({
       //   message: res.msg || 'Error',
       //   type: 'error',
@@ -91,7 +95,7 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    message.error(error.message || 'Error')
+    //message.error(error.message || 'Error')
     // Message({
     //   message: error.message,
     //   type: 'error',

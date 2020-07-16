@@ -21,16 +21,18 @@ export default {
     'Login.studentToggleDescription2': `发送聊天消息`,
     'Login.studentButton': `我是个学生`,
 
-    'CreateOrJoin.teacherTitle': `创建或加入一个课堂`,
-    'CreateOrJoin.studentTitle': `加入一个课堂`,
-    'CreateOrJoin.titlePlaceholder': `课堂`,
+    'CreateOrJoin.teacherTitle': `蜜小蜂讲堂—视频系统`,
+    'CreateOrJoin.studentTitle': `蜜小蜂讲堂—视频系统`,
+    'CreateOrJoin.titlePlaceholder': `讲堂编号`,
     'CreateOrJoin.namePlaceholder': `你的名字`,
-    'CreateOrJoin.continueButton': `继续`,
+    'CreateOrJoin.namePassword':'讲堂口令',
+    'CreateOrJoin.continueButton': `进入讲堂`,
     'CreateOrJoin.notTeacherLink': `不是老师? 点击这儿.`,
     'CreateOrJoin.notStudentLink': `不是学生? 点击这儿.`,
     'CreateOrJoin.classRoomDoesNotExist': `课堂不存在`,
     'CreateOrJoin.serverError': `服务器错误`,
     'CreateOrJoin.chooseLanguage': `选择语言`,
+
 
     'Classroom.classroom': `课堂`,
     'Classroom.askaboutcamera':'老师请求开启摄像头，是否允许？',

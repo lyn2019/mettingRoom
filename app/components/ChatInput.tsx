@@ -10,6 +10,7 @@ import getChimeContext from '../context/getChimeContext';
 import getUIStateContext from '../context/getUIStateContext';
 import ClassMode from '../enums/ClassMode';
 import useFocusMode from '../hooks/useFocusMode';
+import {addChat} from '../../api/orgClassroomChat'
 import styles from './ChatInput.css';
 
 const cx = classNames.bind(styles);
@@ -23,6 +24,7 @@ export default React.memo(function ChatInput() {
   const [raised, setRaised] = useState(false);
   const focusMode = useFocusMode();
   const intl = useIntl();
+
 
   useEffect(() => {
     const attendeeId = chime?.configuration?.credentials?.attendeeId;
@@ -73,6 +75,10 @@ export default React.memo(function ChatInput() {
                   attendeeId,
                   message: sendingMessage
                 });
+                addChat({classroomNum:chime?.title,content:sendingMessage,userId:attendeeId,userName:chime?.name}).then(()=>{
+
+                })
+
                 setInputText('');
               }
             }

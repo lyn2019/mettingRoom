@@ -72,6 +72,11 @@ export default function Roster() {
         attendeeIds = Object.keys(roster).filter(attendeeId => {
             return !!roster[attendeeId].name;
         });
+        console.log('-----------------------------')
+        console.log(attendeeIds)
+        console.log(roster)
+        console.log('-----------------------------')
+
     }
 
     return (

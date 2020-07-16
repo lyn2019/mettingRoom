@@ -25,6 +25,7 @@ export default {
     'CreateOrJoin.studentTitle': `Join a classroom`,
     'CreateOrJoin.titlePlaceholder': `Classroom`,
     'CreateOrJoin.namePlaceholder': `Your name`,
+    'CreateOrJoin.namePassword':'your password',
     'CreateOrJoin.continueButton': `Continue`,
     'CreateOrJoin.notTeacherLink': `Not a teacher? Click here.`,
     'CreateOrJoin.notStudentLink': `Not a student? Click here.`,

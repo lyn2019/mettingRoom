@@ -30,6 +30,7 @@ import SettingMenu from "./SettingMenu";
 
 const cx = classNames.bind(styles);
 import LayerBox from './LayerBox';
+import {updateLeaveTime} from "../../api/orgClassroomInfo";
 
 
 export default function Classroom() {
@@ -48,6 +49,33 @@ export default function Classroom() {
     const [hideRemoteVideo, setHideRemoteVideo] = useState(false);
     const [hideSider, setHideSider] = useState(false);
     const [hideControl, setHideControl] = useState(false);
+
+    const updateLeaveInfo=()=>{
+        console.log(11111)
+        if(chime?.title&&chime?.name){
+            updateLeaveTime({
+                classNum: chime?.title,
+                userName: chime?.name
+            }).then((response:any)=>{
+                console.log(response)
+            })
+        }
+
+    }
+    useEffect(()=>{
+        let ignore=false
+        let timer:any;
+        updateLeaveInfo()
+        if(!ignore){
+            timer=setInterval(()=>{
+                updateLeaveInfo()
+            },10*1000)
+        }
+        return()=>{
+            ignore=true;
+            clearInterval(timer)
+        }
+    },[])
 
     const stopContentShare = async () => {
         setIsModeTransitioning(true);

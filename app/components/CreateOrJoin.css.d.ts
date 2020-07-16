@@ -6,6 +6,7 @@ declare const styles: {
   readonly "dropdown": string;
   readonly "form": string;
   readonly "formWrapper": string;
+  readonly "loadingWarper": string;
   readonly "loginLink": string;
   readonly "menu": string;
   readonly "nameInput": string;

@@ -12,33 +12,56 @@ import getUIStateContext from '../context/getUIStateContext';
 import ClassMode from '../enums/ClassMode';
 import RegionType from '../types/RegionType';
 import styles from './CreateOrJoin.css';
-// import {login} from '../../api/user'
+import {login,updateLeaveTime} from '../../api/orgClassroomInfo'
+import {message} from 'antd';
+import LoadingSpinner from "./LoadingSpinner";
+import MeetingStatus from "../enums/MeetingStatus";
+
 const cx = classNames.bind(styles);
-
-
-
-export default function CreateOrJoin(this:any) {
+export default function CreateOrJoin(this: any) {
     const chime = useContext(getChimeContext()) as ChimeSdkWrapper;
     // const [,dispatch] = useContext(getLanguageContext());
     const [state] = useContext(getUIStateContext());
     const [title, setTitle] = useState('');
     const [name, setName] = useState('');
-    const [region, setRegion] = useState<RegionType | undefined>(undefined);
+   // const [region, setRegion] = useState<RegionType | undefined>(undefined);
+    const [region, setRegion] = useState<RegionType | undefined>({label: 'Japan (Tokyo)', value: 'ap-northeast-1'});
+    const [password, setPassword] = useState('')
+    const [loadstatus, setLoadstatus] = useState(MeetingStatus.Failed)
     const history = useHistory();
     const intl = useIntl();
-
-
-    useEffect(() => {
+    /*useEffect(() => {
+        setRegion({label: 'Japan (Tokyo)', value: 'ap-northeast-1'});
         (async () => {
-
-            setRegion(await chime?.lookupClosestChimeRegion());
-
+            //setRegion(await chime?.lookupClosestChimeRegion());
+            if (state.classMode === ClassMode.Teacher) {
+                setRegion({label: 'Japan (Tokyo)', value: 'ap-northeast-1'});
+            }
         })();
-    }, []);
+    }, []);*/
+
+
+    const toast=(content:any,type?:string)=>{
+        message.destroy();
+        if(type&&type=='error'){
+            message.error(content);
+        }else if(type&&type=='success'){
+            message.success(content)
+
+        }else if(type&&type=='loadr'){
+            message.info(content)
+        }else {
+            message.info(content)
+        }
+
+    }
 
 
     return (
         <div className={cx('createOrJoin')}>
+            <div className={cx('loadingBox')}>
+                {loadstatus === MeetingStatus.Loading && <div className={cx('loadingWarper')}><LoadingSpinner/></div>}
+            </div>
             <div className={cx('formWrapper')}>
                 <h1 className={cx('title')}>
                     {state.classMode === ClassMode.Teacher ? (
@@ -51,19 +74,50 @@ export default function CreateOrJoin(this:any) {
                     className={cx('form')}
                     onSubmit={event => {
                         event.preventDefault();
-                        if (title && name && region) {
-                            /*login({}).then((response:any)=>{
-                                console.log(response)
+                        if (title && name && password&&region) {
+                            setLoadstatus(MeetingStatus.Loading)
+                            login({
+                                classNum: title,
+                                pwd: password,
+                                isTeacher: state.classMode === ClassMode.Teacher,
+                                userName: name
+                            }).then((response: any) => {
+                                setLoadstatus(MeetingStatus.Succeeded)
+                                if (response?.code == '200') {
+                                    history.push(
+                                        `/classroom?title=${encodeURIComponent(
+                                            title
+                                        )}&name=${encodeURIComponent(name)}&region=${region.value}`
+                                    );
+                                } else {
+                                    message.error(response?.msg);
+                                }
+                            }, (error) => {
+                                setLoadstatus(MeetingStatus.Failed)
+                                console.log(error)
+                                toast('登录失败','error');
+                            })
 
-                            })*/
-                            history.push(
-                              `/classroom?title=${encodeURIComponent(
-                                title
-                              )}&name=${encodeURIComponent(name)}&region=${region.value}`
-                            );
+                        }else {
+                            setLoadstatus(MeetingStatus.Failed);
+                            if(!title){
+                                toast('请输入课堂编号','error');
+                                return
+                            }
+
+                            if(!password){
+                                toast('请输入课堂密码','error');
+                                return
+                            }
+
+                            if(!name){
+                                toast('请输入你的名字','error');
+                                return
+                            }
                         }
                     }}
                 >
+
                     <input
                         className={cx('titleInput')}
                         onChange={event => {
@@ -75,6 +129,16 @@ export default function CreateOrJoin(this:any) {
                     />
                     <input
                         className={cx('nameInput')}
+                        type={'password'}
+                        onChange={event => {
+                            setPassword(event.target.value);
+                        }}
+                        placeholder={intl.formatMessage({
+                            id: 'CreateOrJoin.namePassword'
+                        })}
+                    />
+                    <input
+                        className={cx('nameInput')}
                         onChange={event => {
                             setName(event.target.value);
                         }}
@@ -82,7 +146,7 @@ export default function CreateOrJoin(this:any) {
                             id: 'CreateOrJoin.namePlaceholder'
                         })}
                     />
-                    {state.classMode === ClassMode.Teacher && (
+                    {/*{state.classMode === ClassMode.Teacher && (
                         <div className={cx('regionsList')}>
                             <Dropdown
                                 className={cx('dropdown')}
@@ -96,12 +160,14 @@ export default function CreateOrJoin(this:any) {
                                 }
                                 disabled={!region}
                                 onChange={(selectedRegion: RegionType) => {
+                                    console.log('--------selectedRegion-------')
+                                    console.log(selectedRegion)
                                     setRegion(selectedRegion);
                                 }}
                                 placeholder=""
                             />
                         </div>
-                    )}
+                    )}*/}
                     {/*<div className={cx('regionsList')}>
                         <Dropdown
                             className={cx('dropdown')}

@@ -141,3 +141,17 @@
 .menu *[class~='is-selected']:hover {
   background-color: var(--color_mercury);
 }
+
+.loadingWarper{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 99;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+}
