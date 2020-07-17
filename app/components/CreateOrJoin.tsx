@@ -1,31 +1,32 @@
 import classNames from 'classnames/bind';
 import React, {useContext, useEffect, useState} from 'react';
-import Dropdown from 'react-dropdown';
+//import Dropdown from 'react-dropdown';
 import {FormattedMessage, useIntl} from 'react-intl';
 import {Link, useHistory} from 'react-router-dom';
 
-import ChimeSdkWrapper from '../chime/ChimeSdkWrapper';
+//import ChimeSdkWrapper from '../chime/ChimeSdkWrapper';
 import routes from '../constants/routes.json';
-import getChimeContext from '../context/getChimeContext';
+//import getChimeContext from '../context/getChimeContext';
 import getUIStateContext from '../context/getUIStateContext';
 // import getLanguageContext from '../context/getLanguageContext';
 import ClassMode from '../enums/ClassMode';
 import RegionType from '../types/RegionType';
 import styles from './CreateOrJoin.css';
-import {login,updateLeaveTime} from '../../api/orgClassroomInfo'
+import {login} from '../../api/orgClassroomInfo'
 import {message} from 'antd';
 import LoadingSpinner from "./LoadingSpinner";
 import MeetingStatus from "../enums/MeetingStatus";
 
+
 const cx = classNames.bind(styles);
 export default function CreateOrJoin(this: any) {
-    const chime = useContext(getChimeContext()) as ChimeSdkWrapper;
+    //const chime = useContext(getChimeContext()) as ChimeSdkWrapper;
     // const [,dispatch] = useContext(getLanguageContext());
     const [state] = useContext(getUIStateContext());
     const [title, setTitle] = useState('');
     const [name, setName] = useState('');
    // const [region, setRegion] = useState<RegionType | undefined>(undefined);
-    const [region, setRegion] = useState<RegionType | undefined>({label: 'Japan (Tokyo)', value: 'ap-northeast-1'});
+    const [region,] = useState<RegionType | undefined>({label: 'Japan (Tokyo)', value: 'ap-northeast-1'});
     const [password, setPassword] = useState('')
     const [loadstatus, setLoadstatus] = useState(MeetingStatus.Failed)
     const history = useHistory();
@@ -39,9 +40,22 @@ export default function CreateOrJoin(this: any) {
             }
         })();
     }, []);*/
+    useEffect(()=>{
+        /*confirm({
+            title: 'Do you Want to delete these items?',
+            icon: <ExclamationCircleOutlined />,
+            content: 'Some descriptions',
+            onOk() {
+                console.log('OK');
+            }
+
+        })*/
+
+    },[])
 
 
     const toast=(content:any,type?:string)=>{
+
         message.destroy();
         if(type&&type=='error'){
             message.error(content);

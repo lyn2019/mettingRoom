@@ -13,6 +13,8 @@ import ClassMode from '../enums/ClassMode';
 import ViewMode from '../enums/ViewMode';
 import styles from './Controls.css';
 import Tooltip from './Tooltip';
+import {Modal} from 'antd';
+
 const cx = classNames.bind(styles);
 
 enum VideoStatus {
@@ -76,6 +78,16 @@ export default function Controls(props: Props) {
                 mutedClickHandler()
                 break;
             case 'DEVICE-LEAVEROOM':
+                Modal.warning({
+                    title: 'This is a notification message',
+                    content: (
+                        <div>
+                            <p>some messages...some messages...</p>
+                            <p>some messages...some messages...</p>
+                        </div>
+                    ),
+                    onOk() {},
+                });
                 leaveRoomHandler()
                 break;
         }
