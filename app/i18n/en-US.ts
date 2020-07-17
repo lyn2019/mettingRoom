@@ -21,6 +21,8 @@ export default {
     'Login.studentToggleDescription2': `Send chat messages`,
     'Login.studentButton': `I'm a student`,
 
+    'CreateOrJoin.clientType.teacher': `teacher`,
+    'CreateOrJoin.clientType.student': `student`,
     'CreateOrJoin.teacherTitle': `Create or join a classroom`,
     'CreateOrJoin.studentTitle': `Join a classroom`,
     'CreateOrJoin.titlePlaceholder': `Classroom`,

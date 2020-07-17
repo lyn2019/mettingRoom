@@ -13,10 +13,18 @@
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
   margin: 0 0 1rem;
+}
+.title span{
+  color: var(--color_rhubarb);
+  font-size: 1.4rem;
+
+}
+span.subTitle{
+  color: var(--color_Purplishred);
 }
 
 .formWrapper {
@@ -55,6 +63,7 @@
   font-weight: 500;
   color: var(--color_alabaster);
   background: var(--color_mine_shaft_light);
+  /*background: var(--color_rhubarb);*/
   cursor: pointer;
   transition: background-color 0.15s;
   user-select: none;
@@ -63,6 +72,10 @@
 .button:hover {
   background: var(--color_cod_gray_medium);
 }
+
+/*.button.teacher{
+  background: var(--color_Purplishred);
+}*/
 
 .loginLink {
   display: inline-block;
@@ -78,6 +91,7 @@
 .loginLink:hover {
   text-decoration: underline;
 }
+
 
 .regionsList {
   margin-bottom: 0.75rem;
@@ -176,8 +190,10 @@
   color: #fff;
 }
 .clientType.teacher{
-  background: var(--color_rhubarb);
+  background: var(--color_Purplishred);
+
 }
 .clientType.student{
   background: var(--color_rhubarb);
+
 }

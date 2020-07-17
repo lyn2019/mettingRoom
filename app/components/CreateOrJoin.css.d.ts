@@ -13,6 +13,7 @@ declare const styles: {
   readonly "nameInput": string;
   readonly "regionsList": string;
   readonly "student": string;
+  readonly "subTitle": string;
   readonly "teacher": string;
   readonly "title": string;
   readonly "titleInput": string;

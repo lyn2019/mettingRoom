@@ -13,7 +13,7 @@ import ClassMode from '../enums/ClassMode';
 import RegionType from '../types/RegionType';
 import styles from './CreateOrJoin.css';
 import {login} from '../../api/orgClassroomInfo'
-import {message} from 'antd';
+import toast from "../utils/toast";
 import LoadingSpinner from "./LoadingSpinner";
 import MeetingStatus from "../enums/MeetingStatus";
 
@@ -54,7 +54,7 @@ export default function CreateOrJoin(this: any) {
     },[])
 
 
-    const toast=(content:any,type?:string)=>{
+    /*const toast=(content:any,type?:string)=>{
 
         message.destroy();
         if(type&&type=='error'){
@@ -68,7 +68,7 @@ export default function CreateOrJoin(this: any) {
             message.info(content)
         }
 
-    }
+    }*/
 
 
     return (
@@ -88,6 +88,17 @@ export default function CreateOrJoin(this: any) {
                     ) : (
                         <FormattedMessage id="CreateOrJoin.studentTitle"/>
                     )}
+                    {state.classMode === ClassMode.Teacher ? (
+                        <span className={cx('subTitle')}>
+                            <FormattedMessage id="CreateOrJoin.teacherSubTitle"/>
+                        </span>
+                    ) : (
+                        <span>
+                            <FormattedMessage id="CreateOrJoin.studentSubTitle"/>
+                        </span>
+                    )
+                    }
+
                 </h1>
                 <form
                     className={cx('form')}
@@ -109,7 +120,7 @@ export default function CreateOrJoin(this: any) {
                                         )}&name=${encodeURIComponent(name)}&region=${region.value}`
                                     );
                                 } else {
-                                    message.error(response?.msg);
+                                    toast(response?.msg,'error');
                                 }
                             }, (error) => {
                                 setLoadstatus(MeetingStatus.Failed)
