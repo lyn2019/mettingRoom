@@ -51,7 +51,6 @@ export default function Classroom() {
     const [hideControl, setHideControl] = useState(false);
 
     const updateLeaveInfo=()=>{
-        console.log(11111)
         if(chime?.title&&chime?.name){
             updateLeaveTime({
                 classNum: chime?.title,
@@ -169,7 +168,9 @@ export default function Classroom() {
             {meetingStatus === MeetingStatus.Succeeded && (
                 <>
                     <>
+                        {viewMode === ViewMode.Room&&
                         <SettingMenu onClickFn={hideElement} hideState={{hideSider, hideControl}}></SettingMenu>
+                        }
                         <div className={cx('left')} id={'leftBox'}>
                             {viewMode === ViewMode.ScreenShare && (
                                 <ScreenShareHeader onClickStopButton={stopContentShare}/>

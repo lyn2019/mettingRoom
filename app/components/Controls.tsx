@@ -79,11 +79,10 @@ export default function Controls(props: Props) {
                 break;
             case 'DEVICE-LEAVEROOM':
                 Modal.warning({
-                    title: 'This is a notification message',
+                    title: intl.formatMessage({id:'Controls.modal.title'}),
                     content: (
                         <div>
-                            <p>some messages...some messages...</p>
-                            <p>some messages...some messages...</p>
+                            <p><FormattedMessage id="Controls.leaveClassroomRemind"></FormattedMessage></p>
                         </div>
                     ),
                     onOk() {},

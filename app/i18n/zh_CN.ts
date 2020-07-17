@@ -32,6 +32,10 @@ export default {
     'CreateOrJoin.classRoomDoesNotExist': `课堂不存在`,
     'CreateOrJoin.serverError': `服务器错误`,
     'CreateOrJoin.chooseLanguage': `选择语言`,
+    'CreateOrJoin.loginError.requestFail': `登录失败`,
+    'CreateOrJoin.loginError.noClassroomCode': `请输入讲堂编号`,
+    'CreateOrJoin.loginError.noPassword': `请输入讲堂指令`,
+    'CreateOrJoin.loginError.noName': `请输你的名字`,
 
 
     'Classroom.classroom': `课堂`,
@@ -58,6 +62,8 @@ export default {
     'Controls.micMutedInScreenViewMode': `麦克风静音`,
     'Controls.focusOnMessage': `关注`,
     'Controls.focusOffMessage': `不再关注`,
+    'Controls.leaveClassroomRemind': `你已被踢出教室`,
+    'Controls.modal.title': `消息提醒`,
 
     'ScreenPicker.title': `分析你的屏幕`,
     'ScreenPicker.applicationWindowTab': `应用程序窗口`,

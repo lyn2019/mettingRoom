@@ -73,10 +73,15 @@ export default function CreateOrJoin(this: any) {
 
     return (
         <div className={cx('createOrJoin')}>
+
             <div className={cx('loadingBox')}>
                 {loadstatus === MeetingStatus.Loading && <div className={cx('loadingWarper')}><LoadingSpinner/></div>}
             </div>
             <div className={cx('formWrapper')}>
+
+                    {state.classMode === ClassMode.Teacher ? <div className={cx('clientType','teacher')}>老师</div>:<div className={cx('clientType',
+                    'student')}>学生</div>}
+
                 <h1 className={cx('title')}>
                     {state.classMode === ClassMode.Teacher ? (
                         <FormattedMessage id="CreateOrJoin.teacherTitle"/>
@@ -93,7 +98,7 @@ export default function CreateOrJoin(this: any) {
                             login({
                                 classNum: title,
                                 pwd: password,
-                                isTeacher: state.classMode === ClassMode.Teacher,
+                                isTeacher: state.classMode === ClassMode.Teacher?'1':'0',
                                 userName: name
                             }).then((response: any) => {
                                 setLoadstatus(MeetingStatus.Succeeded)
@@ -109,23 +114,31 @@ export default function CreateOrJoin(this: any) {
                             }, (error) => {
                                 setLoadstatus(MeetingStatus.Failed)
                                 console.log(error)
-                                toast('登录失败','error');
+                                toast(intl.formatMessage({
+                                    id:'CreateOrJoin.loginError.requestFail'
+                                }),'error');
                             })
 
                         }else {
                             setLoadstatus(MeetingStatus.Failed);
                             if(!title){
-                                toast('请输入课堂编号','error');
+                                toast(intl.formatMessage({
+                                    id:'CreateOrJoin.loginError.noClassroomCode'
+                                }),'error');
                                 return
                             }
 
                             if(!password){
-                                toast('请输入课堂密码','error');
+                                toast(intl.formatMessage({
+                                    id:'CreateOrJoin.loginError.noPassword'
+                                }),'error');
                                 return
                             }
 
                             if(!name){
-                                toast('请输入你的名字','error');
+                                toast(intl.formatMessage({
+                                    id:'CreateOrJoin.loginError.noName'
+                                }),'error');
                                 return
                             }
                         }
