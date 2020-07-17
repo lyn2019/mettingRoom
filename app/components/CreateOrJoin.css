@@ -190,10 +190,10 @@ span.subTitle{
   color: #fff;
 }
 .clientType.teacher{
-  background: var(--color_Purplishred);
+  background: var(--color_gradients_purplishred);
 
 }
 .clientType.student{
-  background: var(--color_rhubarb);
+  background: var(--color_gradients_rhubarb);
 
 }

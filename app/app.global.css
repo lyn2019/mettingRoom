@@ -33,6 +33,8 @@
   --color_rhubarb:#FFAA00;
   --color_black_medium_opacity: rgba(0, 0, 0, 0.6);
   --color_black_low_opacity: rgba(0, 0, 0, 0.25);
+  --color_gradients_purplishred:linear-gradient(#A64B00 0%, #d67a2d 50%,#A64B00 100%);
+  --color_gradients_rhubarb:linear-gradient(#f7d8a7 0%,#f2c262 50%,#ff9d00 100%);
 }
 
 *,
