@@ -10,7 +10,7 @@ export default {
     'Login.teacherDescription4': `切换焦点:`,
     'Login.teacherToggleDescription1': `全体学生禁言`,
     'Login.teacherToggleDescription2': `关闭学生聊天`,
-    'Login.teacherButton': `我是个老师`,
+    'Login.teacherButton': `我是老师`,
 
     'Login.studentTitle': `学生可以`,
     'Login.studentDescription1': `加入一个课堂`,
@@ -19,7 +19,7 @@ export default {
     'Login.studentDescription4': `当焦点移开时:`,
     'Login.studentToggleDescription1': `解除静音和分享视频`,
     'Login.studentToggleDescription2': `发送聊天消息`,
-    'Login.studentButton': `我是个学生`,
+    'Login.studentButton': `我是学生`,
 
     'CreateOrJoin.clientType.teacher': `老师`,
     'CreateOrJoin.clientType.student': `学生`,
