@@ -80,11 +80,7 @@ export default function Controls(props: Props) {
             case 'DEVICE-LEAVEROOM':
                 Modal.warning({
                     title: intl.formatMessage({id:'Controls.modal.title'}),
-                    content: (
-                        <div>
-                            <p><FormattedMessage id="Controls.leaveClassroomRemind"></FormattedMessage></p>
-                        </div>
-                    ),
+                    content:intl.formatMessage({id:'Controls.leaveClassroomRemind'}),
                     onOk() {},
                 });
                 leaveRoomHandler()
