@@ -90,7 +90,8 @@ export default function Roster() {
                     const rosterAttendee: RosterAttendeeType = roster[attendeeId];
                     return (
                         <div key={attendeeId} className={cx('attendee')} onContextMenu={e => {
-                            if (state.classMode !== ClassMode.Teacher) return
+                            if (state.classMode !== ClassMode.Teacher) return;
+                            if(attendeeId==chime?.configuration?.credentials?.attendeeId) return;
                             let w = document.getElementById('rosterBox')?.offsetWidth || 0
                             setShowflag(true);
                             let leftBoxW = document.getElementById('leftBox')?.offsetWidth || 0
