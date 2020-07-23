@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import React, {useState} from 'react';
 import {FormattedMessage} from 'react-intl';
-import styles from './settingMenu.css'
+import styles from './SettingMenu.css'
 
 /*
 import { FormattedMessage,useIntl } from 'react-intl';
