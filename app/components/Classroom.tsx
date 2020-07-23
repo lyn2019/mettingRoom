@@ -106,14 +106,16 @@ export default function Classroom() {
         [viewMode]
     );
     const seteviceData = (data: any) => {
-        if (data.type == 'DEVICE-TURN-DECEMERA' && data.payload?.cameraState) {
-            setIsOpenLayer(true);
-            setDevicetransferData(data);
-        } else if (data.type == 'DEVICE-TURN-AUTO' && data.payload?.mikeState) {
-            setIsOpenLayer(true);
-            setDevicetransferData(data);
-        } else {
-            setdeviceData(data);
+        if(data&&data.payload?.attendeeId == chime?.configuration?.credentials?.attendeeId){
+            if (data.type == 'DEVICE-TURN-DECEMERA' && data.payload?.cameraState) {
+                setIsOpenLayer(true);
+                setDevicetransferData(data);
+            } else if (data.type == 'DEVICE-TURN-AUTO' && data.payload?.mikeState) {
+                setIsOpenLayer(true);
+                setDevicetransferData(data);
+            } else {
+                setdeviceData(data);
+            }
         }
 
     };
