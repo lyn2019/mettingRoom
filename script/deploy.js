@@ -13,17 +13,17 @@ let appName = 'sendytest01';
 
 function usage() {
   console.log(
-    `Usage: deploy.js -r <region> -a <app-name> -s <stack-name> -b <bucket>`
+      `Usage: deploy.js -r <region> -a <app-name> -s <stack-name> -b <bucket>`
   );
   console.log(`  -r, --region       Deployment region, required`);
   console.log(
-    `  -a, --app-name     Application name (e.g. MyClassroom), required`
+      `  -a, --app-name     Application name (e.g. MyClassroom), required`
   );
   console.log(
-    `  -s, --stack-name   CloudFormation stack name (e.g. <your-name>-myclassroom-1), required`
+      `  -s, --stack-name   CloudFormation stack name (e.g. <your-name>-myclassroom-1), required`
   );
   console.log(
-    `  -b, --s3-bucket    Globally unique S3 bucket prefix for deployment (e.g. <your-name>-myclassroom-1), required`
+      `  -b, --s3-bucket    Globally unique S3 bucket prefix for deployment (e.g. <your-name>-myclassroom-1), required`
   );
   console.log('');
   console.log('Optional:');
@@ -140,7 +140,7 @@ function spawnOrFail(command, args, options) {
   console.log(output);
   if (cmd.status !== 0) {
     console.log(
-      `Command ${command} failed with exit code ${cmd.status} signal ${cmd.signal}`
+        `Command ${command} failed with exit code ${cmd.status} signal ${cmd.signal}`
     );
     console.log(cmd.stderr.toString());
     process.exit(cmd.status);
@@ -187,8 +187,8 @@ function main() {
 
   const cssStyle = fs.readFileSync(`${rootDir}/resources/download.css`, 'utf8');
   fs.writeFileSync(
-    'src/index.html',
-    `
+      'src/index.html',
+      `
 <!DOCTYPE html>
 <html>
 <head>
@@ -212,14 +212,14 @@ ${cssStyle}
   );
 
   const packageJson = JSON.parse(
-    fs.readFileSync(`${rootDir}/package.json`, 'utf8')
+      fs.readFileSync(`${rootDir}/package.json`, 'utf8')
   );
   packageJson.productName = appName;
   packageJson.build.productName = appName;
   packageJson.build.appId = `com.amazonaws.services.chime.sdk.classroom.demo.${appName}`;
   fs.writeFileSync(
-    `${rootDir}/package.json`,
-    JSON.stringify(packageJson, null, 2)
+      `${rootDir}/package.json`,
+      JSON.stringify(packageJson, null, 2)
   );
 
   let mainDevTs = fs.readFileSync(`${rootDir}/app/main.dev.ts`, 'utf8');
@@ -228,8 +228,8 @@ ${cssStyle}
 
   let appHtml = fs.readFileSync(`${rootDir}/app/app.html`, 'utf8');
   appHtml = appHtml.replace(
-    /[<]title[>].*?[<][/]title[>]/g,
-    `<title>${appName}</title>`
+      /[<]title[>].*?[<][/]title[>]/g,
+      `<title>${appName}</title>`
   );
   fs.writeFileSync(`${rootDir}/app/app.html`, appHtml);
 
@@ -286,15 +286,15 @@ ${cssStyle}
   process.chdir(rootDir);
 
   fs.writeFileSync(
-    'app/utils/getBaseUrl.ts',
-    `
+      'app/utils/getBaseUrl.ts',
+      `
 export default function getBaseUrl() {return '${endpoint}';}
 `
   );
 
   fs.writeFileSync(
-    'app/utils/getMessagingWssUrl.ts',
-    `
+      'app/utils/getMessagingWssUrl.ts',
+      `
 export default function getMessagingWssUrl() {return '${messagingWssUrl}';}
 `
   );
@@ -305,7 +305,7 @@ export default function getMessagingWssUrl() {return '${messagingWssUrl}';}
   spawnAndIgnoreResult('yarn', ['package-mac']);
   spawnAndIgnoreResult('yarn', ['package-win']);
   spawnOrFail('rm', ['-rf', `release/${appName}`]);
-  spawnOrFail('mv', ['release/win-unpacked', `release/${appName}`]);
+  spawnOrFail('mv', ['release/win-ia32-unpacked', `release/${appName}`]);
   process.chdir(`${rootDir}/release`);
   spawnOrFail('zip', ['-r', `${appName}-win.zip`, appName]);
   process.chdir(rootDir);

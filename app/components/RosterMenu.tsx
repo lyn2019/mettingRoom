@@ -25,10 +25,13 @@ export default function rosterContextmenu(props: Props) {
     const [mikeState, setmikeState] = useState(false)
     useEffect(() => {
         let ignore=false;
+        let menuItemW = document.getElementById("rosterMenuList")?.offsetWidth || 136;
         if(!ignore){
             setVisibleFlag(show);
-            let menuItemW = document.getElementById("rosterMenuList")?.offsetWidth || 0;
+           // alert(document.getElementById("rosterMenuList")?.offsetWidth)
+
             let warperW = position.w
+           // alert('warperW - position.x='+warperW+'-'+position.x+'='+(warperW - position.x+', menuItemW='+menuItemW+', istrue='+(warperW - position.x >= menuItemW)))
             if (warperW - position.x >= menuItemW) {
                 setPositionX(position.x)
             } else {
