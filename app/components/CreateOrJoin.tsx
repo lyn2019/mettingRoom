@@ -16,13 +16,15 @@ import {login} from '../../api/orgClassroomInfo'
 import toast from "../utils/toast";
 import LoadingSpinner from "./LoadingSpinner";
 import MeetingStatus from "../enums/MeetingStatus";
+import localStorageKeys from "../constants/localStorageKeys.json";
 
 
 const cx = classNames.bind(styles);
 export default function CreateOrJoin(this: any) {
     //const chime = useContext(getChimeContext()) as ChimeSdkWrapper;
     // const [,dispatch] = useContext(getLanguageContext());
-    const [state] = useContext(getUIStateContext());
+    const [state,dispatch] = useContext(getUIStateContext());
+
     const [title, setTitle] = useState('');
     const [name, setName] = useState('');
    // const [region, setRegion] = useState<RegionType | undefined>(undefined);
@@ -70,6 +72,54 @@ export default function CreateOrJoin(this: any) {
 
     }*/
 
+    const setClassMode=(type:string)=>{
+        if(type=='1'){
+            //老师
+            localStorage.setItem(
+                localStorageKeys.CLASS_MODE,
+                ClassMode.Teacher
+            );
+            dispatch({
+                type: 'SET_CLASS_MODE',
+                payload: {
+                    classMode: ClassMode.Teacher
+                }
+            });
+        }else if(type=='0') {
+            //学生
+            localStorage.setItem(
+                localStorageKeys.CLASS_MODE,
+                ClassMode.Student
+            );
+            dispatch({
+                type: 'SET_CLASS_MODE',
+                payload: {
+                    classMode: ClassMode.Student
+                }
+            });
+        }else {
+            localStorage.setItem(
+                localStorageKeys.CLASS_MODE,
+                ClassMode.Student
+            );
+            dispatch({
+                type: 'SET_CLASS_MODE',
+                payload: {
+                    classMode: ClassMode.Student
+                }
+            });
+
+        }
+        if(title && name && password&&region){
+            history.push(
+                `/classroom?title=${encodeURIComponent(
+                    title
+                )}&name=${encodeURIComponent(name)}&region=${region.value}`
+            );
+        }
+
+    }
+
 
     return (
         <div className={cx('createOrJoin')}>
@@ -79,8 +129,7 @@ export default function CreateOrJoin(this: any) {
             </div>
             <div className={cx('formWrapper')}>
 
-                    {state.classMode === ClassMode.Teacher ? <div className={cx('clientType','teacher')}>老师</div>:<div className={cx('clientType',
-                    'student')}>学生</div>}
+
 
                 <h1 className={cx('title')}>
                     {state.classMode === ClassMode.Teacher ? (
@@ -88,7 +137,7 @@ export default function CreateOrJoin(this: any) {
                     ) : (
                         <FormattedMessage id="CreateOrJoin.studentTitle"/>
                     )}
-                    {state.classMode === ClassMode.Teacher ? (
+                    {/*{state.classMode === ClassMode.Teacher ? (
                         <span className={cx('subTitle')}>
                             <FormattedMessage id="CreateOrJoin.teacherSubTitle"/>
                         </span>
@@ -97,7 +146,7 @@ export default function CreateOrJoin(this: any) {
                             <FormattedMessage id="CreateOrJoin.studentSubTitle"/>
                         </span>
                     )
-                    }
+                    }*/}
 
                 </h1>
                 <form
@@ -114,11 +163,7 @@ export default function CreateOrJoin(this: any) {
                             }).then((response: any) => {
                                 setLoadstatus(MeetingStatus.Succeeded)
                                 if (response?.code == '200') {
-                                    history.push(
-                                        `/classroom?title=${encodeURIComponent(
-                                            title
-                                        )}&name=${encodeURIComponent(name)}&region=${region.value}`
-                                    );
+                                    setClassMode(response.result)
                                 } else {
                                     toast(response?.msg,'error');
                                 }

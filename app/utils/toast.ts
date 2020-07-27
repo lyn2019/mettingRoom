@@ -6,7 +6,6 @@ export default function toast(content:any,type:string){
         message.error(content);
     }else if(type&&type=='success'){
         message.success(content)
-
     }else if(type&&type=='loadr'){
         message.info(content)
     }else {

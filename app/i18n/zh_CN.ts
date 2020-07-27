@@ -23,9 +23,9 @@ export default {
 
     'CreateOrJoin.clientType.teacher': `老师`,
     'CreateOrJoin.clientType.student': `学生`,
-    'CreateOrJoin.teacherTitle': `蜜小蜂讲堂`,
+    'CreateOrJoin.teacherTitle': `蜜小蜂视频教学系统`,
     'CreateOrJoin.teacherSubTitle': `视频教学`,
-    'CreateOrJoin.studentTitle': `蜜小蜂讲堂`,
+    'CreateOrJoin.studentTitle': `蜜小蜂视频教学系统`,
     'CreateOrJoin.studentSubTitle': `视频教学`,
     'CreateOrJoin.titlePlaceholder': `请输入小班课编号`,
     'CreateOrJoin.namePlaceholder': `请输入姓名`,
