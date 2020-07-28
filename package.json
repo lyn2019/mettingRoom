@@ -78,10 +78,10 @@
       ]
     },
     "mac": {
-      "icon": "resources/icons/icon.icns"
+      "icon": "dist/icons/icon.icns"
     },
     "win": {
-      "icon": "resources/icon.ico",
+      "icon": "dist/icon.ico",
       "target": [
         "nsis",
         "msi"

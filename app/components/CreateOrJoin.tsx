@@ -277,10 +277,10 @@ export default function CreateOrJoin(this: any) {
                     )}
                 </Link>*/}
                     <div className={cx('externallink')}>
-                        <a href="/resources/html/rules.html" target="_blank">
+                        <a href="dist/html/rules.html" target="_blank">
                             川迪公司用户隐私政策
                         </a>
-                        <a href="/resources/html/serviceagreement.html"
+                        <a href="dist/html/serviceagreement.html"
                            target="_blank">蜜小蜂平台服务协议
                         </a>
                     </div>
