@@ -24,11 +24,11 @@ const cx = classNames.bind(styles);
 export default function CreateOrJoin(this: any) {
     //const chime = useContext(getChimeContext()) as ChimeSdkWrapper;
     // const [,dispatch] = useContext(getLanguageContext());
-    const [state,dispatch] = useContext(getUIStateContext());
+    const [state, dispatch] = useContext(getUIStateContext());
 
     const [title, setTitle] = useState('');
     const [name, setName] = useState('');
-   // const [region, setRegion] = useState<RegionType | undefined>(undefined);
+    // const [region, setRegion] = useState<RegionType | undefined>(undefined);
     const [region,] = useState<RegionType | undefined>({label: 'Japan (Tokyo)', value: 'ap-northeast-1'});
     const [password, setPassword] = useState('')
     const [loadstatus, setLoadstatus] = useState(MeetingStatus.Failed)
@@ -60,8 +60,8 @@ export default function CreateOrJoin(this: any) {
 
     }*/
 
-    const setClassMode=(type:string)=>{
-        if(type=='1'){
+    const setClassMode = (type: string) => {
+        if (type == '1') {
 
 
             //老师
@@ -75,7 +75,7 @@ export default function CreateOrJoin(this: any) {
                     classMode: ClassMode.Teacher
                 }
             });
-        }else if(type=='0') {
+        } else if (type == '0') {
             //学生
             localStorage.setItem(
                 localStorageKeys.CLASS_MODE,
@@ -87,7 +87,7 @@ export default function CreateOrJoin(this: any) {
                     classMode: ClassMode.Student
                 }
             });
-        }else {
+        } else {
             localStorage.setItem(
                 localStorageKeys.CLASS_MODE,
                 ClassMode.Student
@@ -100,7 +100,7 @@ export default function CreateOrJoin(this: any) {
             });
 
         }
-        if(title && name && password&&region){
+        if (title && name && password && region) {
             history.push(
                 `/classroom?title=${encodeURIComponent(
                     title
@@ -112,22 +112,23 @@ export default function CreateOrJoin(this: any) {
 
 
     return (
-        <div className={cx('createOrJoin')}>
+        <>
+            <div className={cx('createOrJoin')}>
 
-            <div className={cx('loadingBox')}>
-                {loadstatus === MeetingStatus.Loading && <div className={cx('loadingWarper')}><LoadingSpinner/></div>}
-            </div>
-            <div className={cx('formWrapper')}>
+                <div className={cx('loadingBox')}>
+                    {loadstatus === MeetingStatus.Loading &&
+                    <div className={cx('loadingWarper')}><LoadingSpinner/></div>}
+                </div>
+                <div className={cx('formWrapper')}>
 
 
-
-                <h1 className={cx('title')}>
-                    {state.classMode === ClassMode.Teacher ? (
-                        <FormattedMessage id="CreateOrJoin.teacherTitle"/>
-                    ) : (
-                        <FormattedMessage id="CreateOrJoin.studentTitle"/>
-                    )}
-                    {/*{state.classMode === ClassMode.Teacher ? (
+                    <h1 className={cx('title')}>
+                        {state.classMode === ClassMode.Teacher ? (
+                            <FormattedMessage id="CreateOrJoin.teacherTitle"/>
+                        ) : (
+                            <FormattedMessage id="CreateOrJoin.studentTitle"/>
+                        )}
+                        {/*{state.classMode === ClassMode.Teacher ? (
                         <span className={cx('subTitle')}>
                             <FormattedMessage id="CreateOrJoin.teacherSubTitle"/>
                         </span>
@@ -138,88 +139,88 @@ export default function CreateOrJoin(this: any) {
                     )
                     }*/}
 
-                </h1>
-                <form
-                    className={cx('form')}
-                    onSubmit={event => {
-                        event.preventDefault();
-                        if (title && name && password&&region) {
-                            setLoadstatus(MeetingStatus.Loading)
-                            login({
-                                classNum: title,
-                                pwd: password,
-                                isTeacher: state.classMode === ClassMode.Teacher?'1':'0',
-                                userName: name
-                            }).then((response: any) => {
-                                setLoadstatus(MeetingStatus.Succeeded)
-                                if (response?.code == '200') {
-                                    setClassMode(response.result)
-                                } else {
-                                    toast(response?.msg,'error');
+                    </h1>
+                    <form
+                        className={cx('form')}
+                        onSubmit={event => {
+                            event.preventDefault();
+                            if (title && name && password && region) {
+                                setLoadstatus(MeetingStatus.Loading)
+                                login({
+                                    classNum: title,
+                                    pwd: password,
+                                    isTeacher: state.classMode === ClassMode.Teacher ? '1' : '0',
+                                    userName: name
+                                }).then((response: any) => {
+                                    setLoadstatus(MeetingStatus.Succeeded)
+                                    if (response?.code == '200') {
+                                        setClassMode(response.result)
+                                    } else {
+                                        toast(response?.msg, 'error');
+                                    }
+                                }, (error) => {
+                                    setLoadstatus(MeetingStatus.Failed)
+                                    console.log(error)
+                                    toast(intl.formatMessage({
+                                        id: 'CreateOrJoin.loginError.requestFail'
+                                    }), 'error');
+                                })
+
+                            } else {
+                                setLoadstatus(MeetingStatus.Failed);
+                                if (!title) {
+                                    toast(intl.formatMessage({
+                                        id: 'CreateOrJoin.loginError.noClassroomCode'
+                                    }), 'error');
+                                    return
                                 }
-                            }, (error) => {
-                                setLoadstatus(MeetingStatus.Failed)
-                                console.log(error)
-                                toast(intl.formatMessage({
-                                    id:'CreateOrJoin.loginError.requestFail'
-                                }),'error');
-                            })
 
-                        }else {
-                            setLoadstatus(MeetingStatus.Failed);
-                            if(!title){
-                                toast(intl.formatMessage({
-                                    id:'CreateOrJoin.loginError.noClassroomCode'
-                                }),'error');
-                                return
+                                if (!password) {
+                                    toast(intl.formatMessage({
+                                        id: 'CreateOrJoin.loginError.noPassword'
+                                    }), 'error');
+                                    return
+                                }
+
+                                if (!name) {
+                                    toast(intl.formatMessage({
+                                        id: 'CreateOrJoin.loginError.noName'
+                                    }), 'error');
+                                    return
+                                }
                             }
-
-                            if(!password){
-                                toast(intl.formatMessage({
-                                    id:'CreateOrJoin.loginError.noPassword'
-                                }),'error');
-                                return
-                            }
-
-                            if(!name){
-                                toast(intl.formatMessage({
-                                    id:'CreateOrJoin.loginError.noName'
-                                }),'error');
-                                return
-                            }
-                        }
-                    }}
-                >
-
-                    <input
-                        className={cx('titleInput')}
-                        onChange={event => {
-                            setTitle(event.target.value);
                         }}
-                        placeholder={intl.formatMessage({
-                            id: 'CreateOrJoin.titlePlaceholder'
-                        })}
-                    />
-                    <input
-                        className={cx('nameInput')}
-                        type={'password'}
-                        onChange={event => {
-                            setPassword(event.target.value);
-                        }}
-                        placeholder={intl.formatMessage({
-                            id: 'CreateOrJoin.namePassword'
-                        })}
-                    />
-                    <input
-                        className={cx('nameInput')}
-                        onChange={event => {
-                            setName(event.target.value);
-                        }}
-                        placeholder={intl.formatMessage({
-                            id: 'CreateOrJoin.namePlaceholder'
-                        })}
-                    />
-                    {/*{state.classMode === ClassMode.Teacher && (
+                    >
+
+                        <input
+                            className={cx('titleInput')}
+                            onChange={event => {
+                                setTitle(event.target.value);
+                            }}
+                            placeholder={intl.formatMessage({
+                                id: 'CreateOrJoin.titlePlaceholder'
+                            })}
+                        />
+                        <input
+                            className={cx('nameInput')}
+                            type={'password'}
+                            onChange={event => {
+                                setPassword(event.target.value);
+                            }}
+                            placeholder={intl.formatMessage({
+                                id: 'CreateOrJoin.namePassword'
+                            })}
+                        />
+                        <input
+                            className={cx('nameInput')}
+                            onChange={event => {
+                                setName(event.target.value);
+                            }}
+                            placeholder={intl.formatMessage({
+                                id: 'CreateOrJoin.namePlaceholder'
+                            })}
+                        />
+                        {/*{state.classMode === ClassMode.Teacher && (
                         <div className={cx('regionsList')}>
                             <Dropdown
                                 className={cx('dropdown')}
@@ -241,7 +242,7 @@ export default function CreateOrJoin(this: any) {
                             />
                         </div>
                     )}*/}
-                    {/*<div className={cx('regionsList')}>
+                        {/*<div className={cx('regionsList')}>
                         <Dropdown
                             className={cx('dropdown')}
                             controlClassName={cx('control')}
@@ -264,19 +265,32 @@ export default function CreateOrJoin(this: any) {
                             })}
                         />
                     </div>*/}
-                    <button className={cx('button')} type="submit">
-                        <FormattedMessage id="CreateOrJoin.continueButton"/>
-                    </button>
-                </form>
-                {/*<Link className={cx('loginLink')} to={routes.LOGIN}>
+                        <button className={cx('button')} type="submit">
+                            <FormattedMessage id="CreateOrJoin.continueButton"/>
+                        </button>
+                    </form>
+                    {/*<Link className={cx('loginLink')} to={routes.LOGIN}>
                     {state.classMode === ClassMode.Teacher ? (
                         <FormattedMessage id="CreateOrJoin.notTeacherLink"/>
                     ) : (
                         <FormattedMessage id="CreateOrJoin.notStudentLink"/>
                     )}
                 </Link>*/}
+                    <div className={cx('externallink')}>
+                        <a href="https://schoolaccount.beehome.vip/page/my/rules.html" target="_blank">
+                            川迪公司用户隐私政策
+                        </a>
+                        <a href="static/html/serviceagreement.html"
+                           target="_blank">蜜小蜂平台服务协议
+                        </a>
+                    </div>
+                </div>
+
+
             </div>
-        </div>
+
+
+        </>
     );
 }
 

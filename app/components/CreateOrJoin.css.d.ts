@@ -5,12 +5,14 @@ declare const styles: {
   readonly "control": string;
   readonly "createOrJoin": string;
   readonly "dropdown": string;
+  readonly "externallink": string;
   readonly "form": string;
   readonly "formWrapper": string;
   readonly "loadingWarper": string;
   readonly "loginLink": string;
   readonly "menu": string;
   readonly "nameInput": string;
+  readonly "privacyBox": string;
   readonly "regionsList": string;
   readonly "student": string;
   readonly "subTitle": string;

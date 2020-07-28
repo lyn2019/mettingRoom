@@ -197,3 +197,39 @@ span.subTitle{
   background: var(--color_gradients_rhubarb);
 
 }
+
+.privacyBox{
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+}
+.privacyBox a{
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+}
+
+.externallink{
+  color: #fff;
+  margin:15px;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+}
+.externallink a{
+  color: var(--color_tundora);
+  margin: 0 8px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.externallink a:hover{
+  color: var(--color_cod_gray_medium);
+  font-weight: bold;
+}
