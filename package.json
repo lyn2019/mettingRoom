@@ -1,6 +1,6 @@
 {
   "name": "amazon-chime-sdk-classroom-demo",
-  "productName": "MyClassroom",
+  "productName": "HCVS",
   "version": "1.0.0",
   "description": "Demonstrates how to use the Amazon Chime SDK to build an online classroom with Electron and React",
   "scripts": {
@@ -52,8 +52,8 @@
     ]
   },
   "build": {
-    "productName": "MyClassroom",
-    "appId": "com.amazonaws.services.chime.sdk.classroom.demo.MyClassroom",
+    "productName": "HCVS",
+    "appId": "com.amazonaws.services.chime.sdk.classroom.demo.HCVS",
     "artifactName": "${productName}.${ext}",
     "files": [
       "dist/",
@@ -78,10 +78,10 @@
       ]
     },
     "mac": {
-      "icon": "dist/icons/icon.icns"
+      "icon": "./app/dist/icons/icon.icns"
     },
     "win": {
-      "icon": "dist/icon.ico",
+      "icon": "./app/dist/icon.ico",
       "target": [
         "nsis",
         "msi"
