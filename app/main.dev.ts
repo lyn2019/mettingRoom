@@ -58,6 +58,7 @@ const createWindow = async () => {
   const defaultHeight = 768;
 
   mainWindow = new BrowserWindow({
+    icon: '../resources/icons/icon.png',
     show: false,
     width: defaultWidth,
     height: defaultHeight,
