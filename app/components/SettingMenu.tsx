@@ -12,12 +12,14 @@ type Props = {
     hideState:{
         hideSider:boolean;
         hideControl:boolean;
+        hideRemoteVideo:boolean
     }
+    isContentShareEnabled:boolean
 }
 
 
 export default function settingMenu(props: Props) {
-    const {onClickFn,hideState} = props
+    const {onClickFn,hideState,isContentShareEnabled} = props
     const [isOpen, setIsopen] = useState(false);
     return (
         <>
@@ -36,15 +38,16 @@ export default function settingMenu(props: Props) {
                         }>
                             {!hideState.hideSider?(<span> <FormattedMessage id="SettingMenu.hideBtn.sider"/></span>):<span><FormattedMessage id="SettingMenu.showBtn.sider"/></span>}
                         </div>
-                        {/*{
-                            viewMode==ViewMode.ScreenShare&&<div className={cx('menuItem')} onClick={()=>{
+                        {
+                            isContentShareEnabled &&<div className={cx('menuItem')} onClick={()=>{
                                 onClickFn('0')
                             }
                             }>
-                                <span>隐藏视频区</span>
+                                {!hideState.hideRemoteVideo?( <span>隐藏视频区</span>): <span>显示视频区</span>}
+
                             </div>
 
-                        }*/}
+                        }
 
                         <div className={cx('menuItem')} onClick={()=>{
                             onClickFn('2')

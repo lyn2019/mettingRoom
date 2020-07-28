@@ -51,6 +51,9 @@
 .classroom.roomMode.isContentShareEnabled .remoteVideoGroupWrapper {
   flex: 0 0 auto;
 }
+.remoteVideoGroupWrapper.hideRemoteVideo{
+  display: none;
+}
 
 .localVideoWrapper {
   display: flex;
@@ -58,6 +61,10 @@
   align-items: center;
   justify-content: center;
   flex: 0 0 var(--local_video_container_height);
+}
+
+.localVideoWrapper.hideControl{
+  display: none;
 }
 
 .localVideo {
@@ -84,6 +91,9 @@
   height: 100%;
   overflow: hidden;
   position: relative;
+}
+.right.hideSider{
+  display: none;
 }
 
 .classroom.screenShareMode .right {

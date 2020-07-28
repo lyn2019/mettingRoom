@@ -5,6 +5,9 @@ declare const styles: {
   readonly "contextMenuBox": string;
   readonly "controls": string;
   readonly "deviceSwitcher": string;
+  readonly "hideControl": string;
+  readonly "hideRemoteVideo": string;
+  readonly "hideSider": string;
   readonly "isContentShareEnabled": string;
   readonly "isModeTransitioning": string;
   readonly "label": string;

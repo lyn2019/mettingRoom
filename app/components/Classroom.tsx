@@ -171,7 +171,7 @@ export default function Classroom() {
                 <>
                     <>
                         {viewMode === ViewMode.Room&&
-                        <SettingMenu onClickFn={hideElement} hideState={{hideSider, hideControl}}></SettingMenu>
+                        <SettingMenu onClickFn={hideElement} hideState={{hideSider, hideControl,hideRemoteVideo}} isContentShareEnabled={isContentShareEnabled}></SettingMenu>
                         }
                         <div className={cx('left')} id={'leftBox'}>
                             {viewMode === ViewMode.ScreenShare && (
@@ -180,16 +180,15 @@ export default function Classroom() {
                             <div className={cx('contentVideoWrapper')}>
                                 <ContentVideo onContentShareEnabled={onContentShareEnabled}/>
                             </div>
-                            {viewMode === ViewMode.ScreenShare && hideRemoteVideo ? null :
-                                <div className={cx('remoteVideoGroupWrapper')}>
-                                    <RemoteVideoGroup
-                                        viewMode={viewMode}
-                                        isContentShareEnabled={isContentShareEnabled}
-                                    />
-                                </div>
-                            }
 
-                            {hideControl ? null : <div className={cx('localVideoWrapper')}>
+                            <div className={cx('remoteVideoGroupWrapper',{hideRemoteVideo})}>
+                                <RemoteVideoGroup
+                                    viewMode={viewMode}
+                                    isContentShareEnabled={isContentShareEnabled}
+                                />
+                            </div>
+
+                            <div className={cx('localVideoWrapper',{ hideControl})}>
                                 <LayerBox isOPen={isOpenLayer} layerOption={{
                                     content: devicetransferData.type == 'DEVICE-TURN-DECEMERA' ? intl.formatMessage({id: 'Classroom.askaboutcamera'}) : intl.formatMessage({id: 'Classroom.askaboutmike'}),
                                     confirm: intl.formatMessage({id: 'Classroom.layerOkBtn'}),
@@ -207,7 +206,6 @@ export default function Classroom() {
 
                                 }}/>
                                 <div className={cx('controls')}>
-
                                     <Controls
                                         viewMode={viewMode}
                                         deviceData={deviceData}
@@ -220,10 +218,10 @@ export default function Classroom() {
                                     <LocalVideo/>
                                 </div>
                             </div>
-                            }
 
                         </div>
-                        {hideSider ? null : <div className={cx('right')}>
+
+                        <div className={cx('right',{hideSider})}>
                             <div className={cx('titleWrapper')}>
                                 <div className={cx('title')}>{chime?.title}</div>
                                 <div className={cx('label')}>
@@ -240,7 +238,6 @@ export default function Classroom() {
                                 <Chat deviceMessageCallback={seteviceData}/>
                             </div>
                         </div>
-                        }
                     </>
                     <Modal
                         isOpen={isPickerEnabled}

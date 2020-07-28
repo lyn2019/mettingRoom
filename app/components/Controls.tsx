@@ -46,12 +46,24 @@ export default function Controls(props: Props) {
             if (state.classMode == ClassMode.Student && viewMode === ViewMode.Room) {
                 eventHandler()
             }
+
         }
         return()=>{
             ignore=true
         }
 
     }, [deviceData])
+    useEffect(()=>{
+        let ignore=false;
+        if(!ignore&&state.classMode == ClassMode.Student&& viewMode === ViewMode.Room){
+            SetvideoVisibleFlag(false);
+            SetmutedVisibleFlag(false)
+        }
+        return()=>{
+            ignore=true
+        }
+
+    },[])
 
     const eventHandler=async ()=>{
         let cameraState = deviceData?.payload?.cameraState;

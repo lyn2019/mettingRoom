@@ -22,7 +22,6 @@ export default function Roster() {
     const chime: ChimeSdkWrapper | null = useContext(getChimeContext());
     const [state] = useContext(getUIStateContext());
     const roster = useRoster();
-
     const [videoAttendees, setVideoAttendees] = useState(new Set());
     const [showflag, setShowflag] = useState(false);
     const [coordinate, setCoordinate] = useState({x: 0, y: 0, w: 0})
@@ -72,10 +71,6 @@ export default function Roster() {
         attendeeIds = Object.keys(roster).filter(attendeeId => {
             return !!roster[attendeeId].name;
         });
-        console.log('-----------------------------')
-        console.log(attendeeIds)
-        console.log(roster)
-        console.log('-----------------------------')
 
     }
 

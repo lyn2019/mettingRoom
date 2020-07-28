@@ -1,11 +1,12 @@
 import classNames from 'classnames/bind';
-import React, {useContext, useEffect, useState} from 'react';
+//import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 //import Dropdown from 'react-dropdown';
 import {FormattedMessage, useIntl} from 'react-intl';
-import {Link, useHistory} from 'react-router-dom';
-
+//import {Link, useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 //import ChimeSdkWrapper from '../chime/ChimeSdkWrapper';
-import routes from '../constants/routes.json';
+// import routes from '../constants/routes.json';
 //import getChimeContext from '../context/getChimeContext';
 import getUIStateContext from '../context/getUIStateContext';
 // import getLanguageContext from '../context/getLanguageContext';
@@ -42,19 +43,6 @@ export default function CreateOrJoin(this: any) {
             }
         })();
     }, []);*/
-    useEffect(()=>{
-        /*confirm({
-            title: 'Do you Want to delete these items?',
-            icon: <ExclamationCircleOutlined />,
-            content: 'Some descriptions',
-            onOk() {
-                console.log('OK');
-            }
-
-        })*/
-
-    },[])
-
 
     /*const toast=(content:any,type?:string)=>{
 
@@ -74,6 +62,8 @@ export default function CreateOrJoin(this: any) {
 
     const setClassMode=(type:string)=>{
         if(type=='1'){
+
+
             //老师
             localStorage.setItem(
                 localStorageKeys.CLASS_MODE,
@@ -278,13 +268,13 @@ export default function CreateOrJoin(this: any) {
                         <FormattedMessage id="CreateOrJoin.continueButton"/>
                     </button>
                 </form>
-                <Link className={cx('loginLink')} to={routes.LOGIN}>
+                {/*<Link className={cx('loginLink')} to={routes.LOGIN}>
                     {state.classMode === ClassMode.Teacher ? (
                         <FormattedMessage id="CreateOrJoin.notTeacherLink"/>
                     ) : (
                         <FormattedMessage id="CreateOrJoin.notStudentLink"/>
                     )}
-                </Link>
+                </Link>*/}
             </div>
         </div>
     );
