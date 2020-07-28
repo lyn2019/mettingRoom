@@ -13,6 +13,7 @@ import merge from 'webpack-merge';
 import CheckNodeEnv from '../internals/scripts/CheckNodeEnv';
 import DeleteSourceMaps from '../internals/scripts/DeleteSourceMaps';
 import baseConfig from './webpack.config.base';
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 
 CheckNodeEnv('production');
 DeleteSourceMaps();
@@ -218,6 +219,16 @@ export default merge.smart(baseConfig, {
       analyzerMode:
         process.env.OPEN_ANALYZER === 'true' ? 'server' : 'disabled',
       openAnalyzer: process.env.OPEN_ANALYZER === 'true'
-    })
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: __dirname + '/app/static/',
+        to: __dirname + '/app/dist/assets',
+      },
+      {
+        from: __dirname + '/app/resources/',
+        to: __dirname + '/app/dist',
+      }
+    ])
   ]
 });
