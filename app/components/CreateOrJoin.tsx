@@ -277,7 +277,7 @@ export default function CreateOrJoin(this: any) {
                     )}
                 </Link>*/}
                     <div className={cx('externallink')}>
-                        <a href="https://schoolaccount.beehome.vip/page/my/rules.html" target="_blank">
+                        <a href="static/html/rules.html" target="_blank">
                             川迪公司用户隐私政策
                         </a>
                         <a href="static/html/serviceagreement.html"

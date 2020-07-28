@@ -4,50 +4,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="./../../statics/iconfots/iconfont.css">
-    <script type="text/javascript" src="../../statics/js/jquery-2.1.0.js"></script>
-    <script type="text/javascript" src="../../statics/js/cmblapi_7.4.0_min_20190614165114.js"></script>
-    <script type="text/javascript" src="../../statics/js/commUtil.js" ></script>
-    <script src="../../statics/lib/cmblife/cmblifeSDK.js"></script>
-    <script type="text/javascript" src="../../statics/js/behavior.min.js"></script>
     <title>川迪公司用户隐私政策</title>
-
-    <script>
-        var webpath='<%=path%>';
-        var useragent = JSON.stringify(navigator.userAgent);
-        console.log(useragent)
-        var isWeixin = (function(){ return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1 })();//微信
-        var isAli=false;//阿里
-        var isCmbApp=useragent.indexOf('MPBank/')>=0;//招行App
-        var isCmblife = cmblife.isCmblife();//掌上生活app
-        var unAllowPay=isWeixin||isAli||isCmbApp;
-        // $(function () {
-        //     if(isCmblife){
-        //         $(".warp>.header").hide();
-        //         $("iframe").css("padding-top",'0');
-        //         var ifmHeight = $(window).height();//-$('.fixtop').height()-5;
-        //         $('#lj_iframe').css('height',ifmHeight);
-        //     }else {
-        //         init();
-        //     }
-        // })
-        $(function () {
-            var is_weixin = (function () {
-                return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1
-            })();
-            var isCmblife = cmblife.isCmblife() || is_weixin;
-            //微信端隐藏bar
-            // if (isCmblife) {
-            //     $(".headBox").css("display", 'none');
-            //     $(".context").css("padding-top", '0');
-            // }
-            commUtil.cmbApplet.setTopBar(isCmblife)
-        })
-    </script>
     <style>
         body {
             padding: 0;
             margin: 0;
+            background: #f2f2f2;
         }
 
         .h5 {
