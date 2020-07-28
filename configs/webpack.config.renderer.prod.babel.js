@@ -222,10 +222,6 @@ export default merge.smart(baseConfig, {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.join(__dirname, '..', 'app/static/'),
-        to: path.join(__dirname, '..', 'app/dist/assets/'),
-      },
-      {
         from: path.join(__dirname, '..', 'resources'),
         to: path.join(__dirname, '..', 'app/dist'),
       }
