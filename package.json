@@ -132,7 +132,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/aws-samples/amazon-chime-sdk-classroom-demo",
+  "homepage": "./",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
