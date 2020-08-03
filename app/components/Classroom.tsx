@@ -4,7 +4,8 @@
 import classNames from 'classnames/bind';
 import {ipcRenderer, remote} from 'electron';
 import React, {useCallback, useContext, useEffect, useState} from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+// import {FormattedMessage, useIntl} from 'react-intl';
+import {useIntl} from 'react-intl';
 import Modal from 'react-modal';
 
 import ChimeSdkWrapper from '../chime/ChimeSdkWrapper';
@@ -49,9 +50,9 @@ export default function Classroom() {
     const [hideRemoteVideo, setHideRemoteVideo] = useState(false);
     const [hideSider, setHideSider] = useState(false);
     const [hideControl, setHideControl] = useState(false);
-
     const updateLeaveInfo=()=>{
         if(chime?.title&&chime?.name){
+
             updateLeaveTime({
                 classNum: chime?.title,
                 userName: chime?.name
@@ -59,13 +60,13 @@ export default function Classroom() {
                 console.log(response)
             })
         }
-
     }
     useEffect(()=>{
         let ignore=false
         let timer:any;
         updateLeaveInfo()
         if(!ignore){
+
             timer=setInterval(()=>{
                 updateLeaveInfo()
             },10*1000)
@@ -75,7 +76,7 @@ export default function Classroom() {
             clearInterval(timer)
         }
     },[])
-
+    document.title=intl.formatMessage({id:'CreateOrJoin.pageClassRoomTitle'},{roomCode:chime?.title})
     const stopContentShare = async () => {
         setIsModeTransitioning(true);
         await new Promise(resolve => setTimeout(resolve, 200));
@@ -222,12 +223,12 @@ export default function Classroom() {
                         </div>
 
                         <div className={cx('right',{hideSider})}>
-                            <div className={cx('titleWrapper')}>
+                           {/* <div className={cx('titleWrapper')}>
                                 <div className={cx('title')}>{chime?.title}</div>
                                 <div className={cx('label')}>
                                     <FormattedMessage id="Classroom.classroom"/>
                                 </div>
-                            </div>
+                            </div>*/}
                             <div className={cx('deviceSwitcher')}>
                                 <DeviceSwitcher/>
                             </div>

@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 //import React, {useContext, useEffect, useState} from 'react';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState,useEffect} from 'react';
 //import Dropdown from 'react-dropdown';
 import {FormattedMessage, useIntl} from 'react-intl';
 //import {Link, useHistory} from 'react-router-dom';
@@ -59,6 +59,12 @@ export default function CreateOrJoin(this: any) {
         }
 
     }*/
+    useEffect(()=>{
+        document.title = intl.formatMessage({
+            id:'CreateOrJoin.pageDefaultTitle'
+        })
+
+    },[])
 
     const setClassMode = (type: string) => {
         if (type == '1') {
@@ -278,10 +284,12 @@ export default function CreateOrJoin(this: any) {
                 </Link>*/}
                     <div className={cx('externallink')}>
                         <a href="dist/html/rules.html" target="_blank">
-                            川迪公司用户隐私政策
+                            <FormattedMessage id="CreateOrJoin.PrivacyLink"/>
+
                         </a>
                         <a href="dist/html/serviceagreement.html"
-                           target="_blank">蜜小蜂平台服务协议
+                           target="_blank">
+                            <FormattedMessage id="CreateOrJoin.agreementLinl"/>
                         </a>
                     </div>
                 </div>

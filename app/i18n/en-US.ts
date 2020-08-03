@@ -38,6 +38,10 @@ export default {
     'CreateOrJoin.loginError.noClassroomCode': `请输入讲堂编号`,
     'CreateOrJoin.loginError.noPassword': `请输入讲堂指令`,
     'CreateOrJoin.loginError.noName': `请输你的名字`,
+    'CreateOrJoin.PrivacyLink':'用户隐私政策',
+    'CreateOrJoin.agreementLinl':'服务协议',
+    'CreateOrJoin.pageDefaultTitle':'Honeybee Cloud Video System',
+    'CreateOrJoin.pageClassRoomTitle':'直播间{roomCode}',
 
     'Classroom.classroom': `Classroom`,
     'Classroom.askaboutcamera':'The teacher asked to turn on the camera',

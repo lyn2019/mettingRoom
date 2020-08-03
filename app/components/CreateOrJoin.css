@@ -218,7 +218,7 @@ span.subTitle{
   margin:15px;
   text-decoration: none;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 
 

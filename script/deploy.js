@@ -227,10 +227,10 @@ ${cssStyle}
   fs.writeFileSync(`${rootDir}/app/main.dev.ts`, mainDevTs);
 
   let appHtml = fs.readFileSync(`${rootDir}/app/app.html`, 'utf8');
-  appHtml = appHtml.replace(
+  /*appHtml = appHtml.replace(
       /[<]title[>].*?[<][/]title[>]/g,
-      `<title>${appName}</title>`
-  );
+      `<title>Honeybee Cloud Video System</title>`
+  );*/
   fs.writeFileSync(`${rootDir}/app/app.html`, appHtml);
 
   spawnOrFail('sam', [
